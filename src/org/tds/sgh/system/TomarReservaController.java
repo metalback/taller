@@ -25,8 +25,8 @@ public class TomarReservaController implements ITomarReservaController {
 
 	@Override
 	public Set<ClienteDTO> buscarCliente(String patronNombreCliente) {
-		// TODO Auto-generated method stub
-		return null;
+		HashSet<Cliente> clientes = this.cadenaHotelera.buscarCliente(patronNombreCliente);
+		return DTO.getInstance().mapClientes(clientes);
 	}
 
 	@Override
