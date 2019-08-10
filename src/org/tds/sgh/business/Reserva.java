@@ -80,5 +80,30 @@ public class Reserva
 	public void asignarHabitacion(Habitacion habitacion) {
 		this.habitacion = habitacion;
 	}
+
+	public Boolean getModificablePorHuesped() {
+		return modificablePorHuesped;
+	}
+
+	public void setModificablePorHuesped(Boolean modificablePorHuesped) {
+		this.modificablePorHuesped = modificablePorHuesped;
+	}
+
+	public Map<String, Huesped> getHuespedes() {
+		return huespedes;
+	}
+
+	public void setHuespedes(Map<String, Huesped> huespedes) {
+		this.huespedes = huespedes;
+	}
+
+	public TipoHabitacion getTipoHabitacion() {
+		return tipoHabitacion;
+	}
+
+	public void setTipoHabitacion(TipoHabitacion tipoHabitacion) {
+		this.tipoHabitacion = tipoHabitacion;
+	}
+	
 	
 }
