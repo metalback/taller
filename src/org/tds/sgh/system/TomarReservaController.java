@@ -70,8 +70,8 @@ public class TomarReservaController implements ITomarReservaController {
 
 	@Override
 	public Set<ReservaDTO> buscarReservasPendientes(String nombreHotel) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		HashSet<Reserva> reservas = this.buscarReservasPendientes(nombreHotel);
+		return DTO.getInstance().mapReservas(reservas);
 	}
 
 	@Override
