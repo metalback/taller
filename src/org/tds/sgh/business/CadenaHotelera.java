@@ -1,9 +1,12 @@
 package org.tds.sgh.business;
 
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import org.tds.sgh.system.Reserva;
 
 
 public class CadenaHotelera
@@ -149,5 +152,89 @@ public class CadenaHotelera
 	public Set<TipoHabitacion> listarTiposHabitacion()
 	{
 		return new HashSet<TipoHabitacion>(this.tiposHabitacion.values());
+	}
+
+	public Cliente seleccionarCliente(String rut) {
+		return this.clientes.get(rut);
+	}
+
+	public Boolean confirmarDisponibilidad(String nombreHotel, String nombreTipoHabitacion,
+			GregorianCalendar fechaInicio, GregorianCalendar fechaFin) {
+		TipoHabitacion tipoHabitacion = this.tiposHabitacion.get(nombreTipoHabitacion);
+		Hotel hotel = this.hoteles.get(nombreHotel);
+		Boolean disponilidad = hotel.confirmarDisponibilidad(tipoHabitacion, fechaInicio, fechaFin);
+		return disponibilidad;
+	}
+
+	public Reserva registrarReserva(String nombreHotel, String nombreTipoHabitacion, GregorianCalendar fechaInicio,
+			GregorianCalendar fechaFin, boolean modificablePorHuesped) {
+		Hotel hotel = this.hoteles.get(nombreHotel);
+		TipoHabitacion tipoHabitacion = this.tiposHabitacion.get(nombreTipoHabitacion);
+		Cliente cliente = this.clientes.get(this.idCliente); // idCliente tengo que obtenerlo de alguna parte
+		Reserva reserva =  hotel.crearReserva(cliente, tipoHabitacion, fechaInicio, fechaFin, modificablePorHuesped);
+		return reserva;
+	}
+
+	public HashSet<Hotel> sugerirAlternativas(String pais, String nombreTipoHabitacion, GregorianCalendar fechaInicio,
+			GregorianCalendar fechaFin) {
+		TipoHabitacion tipoHabitacion = this.tiposHabitacion.get(nombreTipoHabitacion);
+		int cont = 0;
+		HashSet<Hotel> hoteles_sugeridos = new HashSet<Hotel>();
+		
+		for (Map.Entry<String, Hotel> entry : this.hoteles.entrySet()) {
+		    String key = entry.getKey();
+		    Hotel aux_hotel = entry.getValue();
+		    if(aux_hotel.estaEnPais(pais)) {
+				if(aux_hotel.confirmarDisponibilidad(tipoHabitacion, fechaInicio, fechaFin)) {
+					hoteles_sugeridos.add(aux_hotel);
+				}
+			}
+		}
+		return hoteles_sugeridos;
+	}
+
+	public Map<String, Cliente> getClientes() {
+		return clientes;
+	}
+
+	public void setClientes(Map<String, Cliente> clientes) {
+		this.clientes = clientes;
+	}
+
+	public Map<String, Hotel> getHoteles() {
+		return hoteles;
+	}
+
+	public void setHoteles(Map<String, Hotel> hoteles) {
+		this.hoteles = hoteles;
+	}
+
+	public Map<String, TipoHabitacion> getTiposHabitacion() {
+		return tiposHabitacion;
+	}
+
+	public void setTiposHabitacion(Map<String, TipoHabitacion> tiposHabitacion) {
+		this.tiposHabitacion = tiposHabitacion;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public HashSet<Reserva> buscarReservasPendientes(String nombreHotel) {
+		Hotel hotel = this.hoteles.get(nombreHotel);
+		HashSet<Reserva> reservas_pendientes = hotel.buscarReservasPendientes();
+		return reservas_pendientes;
+	}
+
+	public Reserva seleccionarReserva(long codigoReserva, String rut) {
+		Cliente cliente = this.seleccionarCliente(rut);
+		return cliente.SeleccionarReserva(codigoReserva);
+		
+	}
+
+	public Reserva registrarHuesped(String rut, String codigoReserva, String nombre, String documento) {
+		Cliente cliente = this.buscarCliente(rut);
+		return cliente.asociarHuesped(codigoReserva, nombre, documento);
 	}
 }
