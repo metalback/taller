@@ -64,7 +64,7 @@ public class CadenaHotelera
 		this.hoteles.put(hotel.getNombre(), hotel);
 		
 		return hotel;
-	}
+	} 
 	
 	public TipoHabitacion agregarTipoHabitacion(String nombre) throws Exception
 	{
