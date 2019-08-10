@@ -102,5 +102,31 @@ public class Cliente
 		Reserva reserva = this.reservas.get(codigoReserva);
 		return reserva.asociarHuesped(nombre, documento);
 	}
+
+	// --------------------------------------------------------------------------------------------
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public void setRut(String rut) {
+		this.rut = rut;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public void setReservas(Map<String, Reserva> reservas) {
+		this.reservas = reservas;
+	}
 	
 }

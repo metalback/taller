@@ -105,6 +105,59 @@ public class Reserva
 	public void setTipoHabitacion(TipoHabitacion tipoHabitacion) {
 		this.tipoHabitacion = tipoHabitacion;
 	}
+	// --------------------------------------------------------------------------------------------
+
+	public long getCodigoReserva() {
+		return codigoReserva;
+	}
+
+	public void setCodigoReserva(long codigoReserva) {
+		this.codigoReserva = codigoReserva;
+	}
+
+	public GregorianCalendar getFechaInicio() {
+		return fechaInicio;
+	}
+
+	public void setFechaInicio(GregorianCalendar fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+
+	public GregorianCalendar getFechaFin() {
+		return fechaFin;
+	}
+
+	public void setFechaFin(GregorianCalendar fechaFin) {
+		this.fechaFin = fechaFin;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public Habitacion getHabitacion() {
+		return habitacion;
+	}
+
+	public void setHabitacion(Habitacion habitacion) {
+		this.habitacion = habitacion;
+	}
+
+	public Hotel getHotel() {
+		return hotel;
+	}
+
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
+	}
+
+	public void setEstado(EstadoReserva estado) {
+		this.estado = estado;
+	}
 	
 	
 }
