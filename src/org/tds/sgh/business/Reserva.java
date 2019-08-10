@@ -68,29 +68,30 @@ public class Reserva
 		this.huespedes.put(documento, huesped);
 		return this;
 	}
-	
 	public void cambiarEstadoTomada() {
 		this.estado = EstadoReserva.Tomada;
 	}
-	
-	public EstadoReserva getEstado() {
-		return this.estado;
-	}
-	
 	public void asignarHabitacion(Habitacion habitacion) {
 		this.habitacion = habitacion;
 	}
 
-	public Boolean getModificablePorHuesped() {
-		return modificablePorHuesped;
-	}
+	
 
+	
+	// --------------------------------------------------------------------------------------------
+	public EstadoReserva getEstado() {
+		return this.estado;
+	}
+	public Boolean getModificablePorHuesped() {
+		return this.modificablePorHuesped;
+	}
+	
 	public void setModificablePorHuesped(Boolean modificablePorHuesped) {
 		this.modificablePorHuesped = modificablePorHuesped;
 	}
 
 	public Map<String, Huesped> getHuespedes() {
-		return huespedes;
+		return this.huespedes;
 	}
 
 	public void setHuespedes(Map<String, Huesped> huespedes) {
@@ -98,7 +99,7 @@ public class Reserva
 	}
 
 	public TipoHabitacion getTipoHabitacion() {
-		return tipoHabitacion;
+		return this.tipoHabitacion;
 	}
 
 	public void setTipoHabitacion(TipoHabitacion tipoHabitacion) {
