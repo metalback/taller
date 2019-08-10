@@ -1,5 +1,7 @@
 package org.tds.sgh.business;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.UUID;
 
 public class Cliente
@@ -67,9 +69,28 @@ public class Cliente
 		return this.telefono;
 	}
 	
-	public Long getCodigoCliente() 
-	{
-		return this.codigoCliente;
+	public void agregarReservaAColeccion(Reserva reserva) {
+		long codigoReserva = reserva.getCodigoReserva();
+		if (this.reservas.containsKey(codigoReserva))
+		{
+			throw new Exception("Ya existe una reserva con el código indicado.");
+		}
+		
+		this.reservas.put(codigoReserva, reserva);
+	}
+	
+	public Reserva seleccionarReserva(Long codigoReserva) {
+		return this.reservas.get(codigoReserva);
+	}
+	
+	public Set<Reserva> obtenerReservasPendientes(){
+		HashSet<Reserva> reservasPendientes = new HashSet<Reserva>();
+		
+		this.reservas.forEach((k, v) -> i[0] += k + v);
+		
+		this.reservas
+		
+		return reservasPendientes;
 	}
 	
 }

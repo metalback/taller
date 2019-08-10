@@ -9,15 +9,6 @@ import org.tds.sgh.system.Reserva;
 public class Reserva
 {
 	// --------------------------------------------------------------------------------------------
-	
-	private enum EstadoReserva {
-		Pendiente,
-		Tomada,
-		Finalizada,
-		Cancelada,
-		NoTomada
-	}
-	
 	private long codigoReserva;
 	
 	private GregorianCalendar fechaInicio;
@@ -26,7 +17,7 @@ public class Reserva
 	
 	private Boolean modificablePorHuesped;
 	
-	private String estado;
+	private EstadoReserva estado;
 	
 	private Cliente cliente;
 	
@@ -82,7 +73,7 @@ public class Reserva
 		this.estado = EstadoReserva.Tomada;
 	}
 	
-	public String getEstado() {
+	public EstadoReserva getEstado() {
 		return this.estado;
 	}
 	
