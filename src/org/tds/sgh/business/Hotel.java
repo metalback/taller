@@ -57,4 +57,23 @@ public class Hotel
 	{
 		return new HashSet<Habitacion>(this.habitaciones.values());
 	}
+	// --------------------------------------------------------------------------------------------
+
+	public Map<String, Habitacion> getHabitaciones() {
+		return habitaciones;
+	}
+
+	public void setHabitaciones(Map<String, Habitacion> habitaciones) {
+		this.habitaciones = habitaciones;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
+
+	
 }
