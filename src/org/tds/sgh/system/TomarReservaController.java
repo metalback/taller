@@ -12,53 +12,17 @@ import org.tds.sgh.dtos.DTO;
 import org.tds.sgh.dtos.HotelDTO;
 import org.tds.sgh.dtos.ReservaDTO;
 
-public class TomarReservaController implements ITomarReservaController {
+public class TomarReservaController extends BaseController implements ITomarReservaController {
 	private CadenaHotelera cadenaHotelera;
 	private Cliente cliente;
 	private Reserva reserva;
 	
+	TomarReservaController(CadenaHotelera cadenaHotelera) {
+		super(cadenaHotelera);
+	}
+	
 	@Override
 	public Set<ReservaDTO> buscarReservasDelCliente() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Set<ClienteDTO> buscarCliente(String patronNombreCliente) {
-		HashSet<Cliente> clientes = this.cadenaHotelera.buscarCliente(patronNombreCliente);
-		return DTO.getInstance().mapClientes(clientes);
-	}
-
-	@Override
-	public ClienteDTO seleccionarCliente(String rut) throws Exception {
-		Cliente cliente = this.cadenaHotelera.seleccionarCliente(rut);
-		return DTO.getInstance().map(cliente);
-	}
-
-	@Override
-	public boolean confirmarDisponibilidad(String nombreHotel, String nombreTipoHabitacion,
-			GregorianCalendar fechaInicio, GregorianCalendar fechaFin) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public ReservaDTO registrarReserva(String nombreHotel, String nombreTipoHabitacion, GregorianCalendar fechaInicio,
-			GregorianCalendar fechaFin, boolean modificablePorHuesped) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Set<HotelDTO> sugerirAlternativas(String pais, String nombreTipoHabitacion, GregorianCalendar fechaInicio,
-			GregorianCalendar fechaFin) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ClienteDTO registrarCliente(String rut, String nombre, String direccion, String telefono, String mail)
-			throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -93,7 +57,4 @@ public class TomarReservaController implements ITomarReservaController {
 		Reserva reserva  = this.cadenaHotelera.tomarReserva(reserva.getCodigoReserva(), cliente.getNombre());
 		return DTO.getInstance().map(reserva);
 	}
-	
-	
-	
 }
