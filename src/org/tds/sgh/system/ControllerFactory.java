@@ -35,15 +35,13 @@ public class ControllerFactory implements IControllerFactory
 	@Override
 	public IHacerReservaController createHacerReservaController()
 	{
-		// TODO
-		throw new NotImplementedException();
+		return new HacerReservaController(this.cadenaHotelera);
 	}
 	
 	@Override
 	public IModificarReservaController createModificarReservaController()
 	{
-		// TODO
-		throw new NotImplementedException();
+		return new ModificarReservaController(this.cadenaHotelera);
 	}
 	
 	@Override

@@ -12,11 +12,9 @@ import org.tds.sgh.dtos.ClienteDTO;
 import org.tds.sgh.dtos.DTO;
 import org.tds.sgh.dtos.HotelDTO;
 import org.tds.sgh.dtos.ReservaDTO;
+import org.tds.sgh.infrastructure.Infrastructure;
 
 public class TomarReservaController extends BaseController implements ITomarReservaController {
-	private CadenaHotelera cadenaHotelera;
-	private Cliente cliente;
-	private Reserva reserva;
 	
 	TomarReservaController(CadenaHotelera cadenaHotelera) {
 		super(cadenaHotelera);
@@ -44,18 +42,22 @@ public class TomarReservaController extends BaseController implements ITomarRese
 	@Override
 	public ReservaDTO seleccionarReserva(long codigoReserva) throws Exception {
 		Reserva reserva = this.cadenaHotelera.seleccionarReserva(codigoReserva, cliente.getRut());
+		this.reserva = reserva;
 		return DTO.getInstance().map(reserva);
 	}
 
 	@Override
 	public ReservaDTO registrarHuesped(String nombre, String documento) throws Exception {
 		Reserva reserva = this.cadenaHotelera.registrarHuesped(this.cliente.getRut(), this.reserva.getCodigoReserva(), nombre, documento);
+		this.reserva = reserva;
 		return DTO.getInstance().map(reserva);
 	}
 
 	@Override
 	public ReservaDTO tomarReserva() throws Exception {
-		Reserva reserva  = this.cadenaHotelera.tomarReserva(this.reserva.getCodigoReserva(), cliente.getRut());
+		Reserva reserva  = this.cadenaHotelera.tomarReserva(this.reserva.getCodigoReserva(), cliente.getRut(), this.reserva.getHotel());
+		Infrastructure.getInstance().getSistemaMensajeria().enviarMail(cliente.getMail(), "", "");
+		Infrastructure.getInstance().getSistemaFacturacion().iniciarEstadia(DTO.getInstance().map(reserva));
 		return DTO.getInstance().map(reserva);
 	}
 }

@@ -16,6 +16,9 @@ import org.tds.sgh.dtos.ReservaDTO;
 public class BaseController implements IIdentificarClienteEnRecepcionController {
 
 	protected CadenaHotelera cadenaHotelera;
+	protected Cliente cliente;
+	protected Reserva reserva;
+	
 	public BaseController(CadenaHotelera cadenaHotelera) {
 		this.cadenaHotelera = cadenaHotelera;
 	} 
@@ -27,6 +30,7 @@ public class BaseController implements IIdentificarClienteEnRecepcionController 
 
 	public ClienteDTO seleccionarCliente(String rut) throws Exception {
 		Cliente cliente = this.cadenaHotelera.seleccionarCliente(rut);
+		this.cliente = cliente;
 		return DTO.getInstance().map(cliente);
 	}
 
@@ -40,6 +44,7 @@ public class BaseController implements IIdentificarClienteEnRecepcionController 
 			GregorianCalendar fechaFin, boolean modificablePorHuesped) throws Exception {
 		Reserva reserva = this.cadenaHotelera.registrarReserva(nombreHotel,  nombreTipoHabitacion,  fechaInicio,
 				 fechaFin,  modificablePorHuesped);
+		this.reserva = reserva;
 		return DTO.getInstance().map(reserva);
 		
 	}
@@ -53,6 +58,7 @@ public class BaseController implements IIdentificarClienteEnRecepcionController 
 	public ClienteDTO registrarCliente(String rut, String nombre, String direccion, String telefono, String mail)
 			throws Exception {
 		Cliente cliente = this.cadenaHotelera.agregarCliente(rut, nombre, direccion, telefono, mail);
+		this.cliente = cliente;
 		return DTO.getInstance().map(cliente);
 	}
 

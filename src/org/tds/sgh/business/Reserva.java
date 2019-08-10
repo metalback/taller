@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+import org.tds.sgh.infrastructure.Infrastructure;
+
 
 
 public class Reserva
@@ -82,6 +84,11 @@ public class Reserva
 		return this;
 	}
 
+	public boolean coincide(TipoHabitacion tipoHabitacion, GregorianCalendar fechaInicio, GregorianCalendar fechaFin) {
+		return this.tipoHabitacion == tipoHabitacion && 
+			!(Infrastructure.getInstance().getCalendario().esAnterior(fechaFin, this.fechaInicio) && 
+			Infrastructure.getInstance().getCalendario().esPosterior(this.fechaFin, fechaInicio));
+	}
 	
 
 	

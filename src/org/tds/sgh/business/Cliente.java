@@ -74,12 +74,8 @@ public class Cliente
 		return this.telefono;
 	}
 	
-	public void agregarReservaAColeccion(Reserva reserva) throws Exception {
+	public void agregarReservaAColeccion(Reserva reserva){
 		Long codigoReserva = reserva.getCodigoReserva();
-		if (this.reservas.containsKey(codigoReserva))
-		{
-			throw new Exception("Ya existe una reserva con el código indicado.");
-		}
 		this.reservas.put(codigoReserva, reserva);
 	}
 	

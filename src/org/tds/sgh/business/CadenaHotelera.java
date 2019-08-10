@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.tds.sgh.system.Reserva;
+import org.tds.sgh.infrastructure.Infrastructure;
 
 
 public class CadenaHotelera
@@ -55,6 +55,8 @@ public class CadenaHotelera
 		Cliente cliente = new Cliente(rut, nombre, direccion, telefono, mail);
 		
 		this.clientes.put(cliente.getRut(), cliente);
+		
+		this.cliente = cliente;
 		
 		return cliente;
 	}
@@ -159,7 +161,8 @@ public class CadenaHotelera
 	}
 
 	public Cliente seleccionarCliente(String rut) {
-		return this.clientes.get(rut);
+		this.cliente = this.clientes.get(rut);
+		return this.cliente;
 	}
 
 	public boolean confirmarDisponibilidad(String nombreHotel, String nombreTipoHabitacion,
@@ -175,6 +178,7 @@ public class CadenaHotelera
 		TipoHabitacion tipoHabitacion = this.tiposHabitacion.get(nombreTipoHabitacion);
 		Cliente cliente = this.clientes.get(this.cliente.getRut());
 		Reserva reserva =  hotel.crearReserva(cliente, tipoHabitacion, fechaInicio, fechaFin, modificablePorHuesped);
+		Infrastructure.getInstance().getSistemaMensajeria().enviarMail(cliente.getMail(), "", "");
 		return reserva;
 	}
 
@@ -259,7 +263,7 @@ public class CadenaHotelera
 		return cliente.asociarHuesped(codigoReserva, nombre, documento);
 	}
 	
-	public Reserva tomarReserva(Long codigoReserva, String rut) throws Exception {
-		return this.hotel.tomarReserva(codigoReserva, rut);
+	public Reserva tomarReserva(Long codigoReserva, String rut, Hotel hotel) throws Exception {
+		return hotel.tomarReserva(codigoReserva, rut);
 	}
 }

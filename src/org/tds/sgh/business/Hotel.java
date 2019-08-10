@@ -31,6 +31,8 @@ public class Hotel
 	public Hotel(String nombre, String pais) {
 		this.nombre = nombre;
 		this.pais = pais;
+		this.reservas = new HashMap<Long, Reserva>();
+		this.habitaciones = new HashMap<String, Habitacion>();
 	}
 
 	// --------------------------------------------------------------------------------------------
@@ -59,7 +61,7 @@ public class Hotel
 	
 	public Reserva crearReserva(Cliente cliente,TipoHabitacion tipoHabitacion ,GregorianCalendar fechaInicio, GregorianCalendar fechaFin,Boolean modificableHuesped){
 		Reserva reserva = new Reserva(fechaInicio, fechaFin, modificableHuesped,cliente,this,tipoHabitacion); 
-		
+		cliente.agregarReservaAColeccion(reserva);
 		this.reservas.put(reserva.getCodigoReserva(), reserva);
 		return reserva;
 	}
@@ -68,7 +70,21 @@ public class Hotel
 	public void agregarReserva(Reserva reserva){}
 	
 	public boolean confirmarDisponibilidad(TipoHabitacion tipoHabitacion ,GregorianCalendar fechaInicio, GregorianCalendar fechaFin){
-		return true;
+		int contarHabitacionMismoTipo = 0;
+		int contarHabitacionConReserva = 0;
+		for(Habitacion h: this.habitaciones.values()) {
+			if(h.getTipoHabitacion() == tipoHabitacion) {
+				contarHabitacionMismoTipo++;
+			}
+		}
+		
+		for(Reserva r: this.reservas.values()) {
+			if(r.coincide(tipoHabitacion, fechaInicio, fechaFin)) {
+				contarHabitacionConReserva++;
+			}
+		}
+	
+		return contarHabitacionMismoTipo > contarHabitacionConReserva;
 	}
 	
 	public boolean estaEnPais(String pais){
@@ -78,32 +94,30 @@ public class Hotel
 		return false;
 	}
 	
-	public Reserva tomarReserva(Long codigoReserva, String rut) throws Exception{
+	public Reserva tomarReserva(Long codigoReserva, String rut){
 	    Reserva reserva = this.reservas.get(codigoReserva);
 	    
-	    for (Map.Entry<String, Habitacion> entry : this.habitaciones.entrySet()) {
-	    	boolean disponible = true;
-	        Habitacion habitacionHotel = entry.getValue();
-	        TipoHabitacion tipoHabitacionHotel = habitacionHotel.getTipoHabitacion();
-	        for (Map.Entry<Long, Reserva> entry_reserva : this.reservas.entrySet()) {
-	            Reserva reserva_aux = entry_reserva.getValue();
-	            if(reserva_aux.getTipoHabitacion().getNombre().equals(tipoHabitacionHotel.getNombre())) {
-	            	if(reserva_aux.getEstado() == EstadoReserva.Tomada){
-	            		if(reserva_aux.getHabitacion().getNombre().equals(habitacionHotel.getNombre())) {
-	            			disponible = false;
-	            			break;
-	            		}
-	            	}
-	            }
-	        }
-	        
-	        if(disponible){
-	        	reserva.asignarHabitacion(habitacionHotel);
-	        	reserva.cambiarEstadoTomada();
-	        	return reserva;
-	        }
+	    Set<Habitacion> habitacionesP = new HashSet<Habitacion>();
+	    
+	    for(Habitacion h: this.habitaciones.values()) {
+	    	if(h.getTipoHabitacion() == reserva.getTipoHabitacion()) {
+	    		habitacionesP.add(h);
+	    	}
 	    }
-	    throw new Exception("El hotel no cuenta con habitaciones disponibles para asignar a la reserva.");
+	    
+	    
+	    for(Reserva r: this.reservas.values()) {
+	    	if(r != reserva && r.getHabitacion() != null) {
+	    		if(r.coincide(reserva.getTipoHabitacion(), reserva.getFechaInicio(), reserva.getFechaFin())) {
+	    			habitacionesP.remove(r.getHabitacion());
+	    		}
+	    	}
+	    }
+	    
+	    Habitacion hab = habitacionesP.stream().findFirst().get();
+	    reserva.setHabitacion(hab);
+	    reserva.cambiarEstadoTomada();
+	    return reserva;
 	}
 	
 	
