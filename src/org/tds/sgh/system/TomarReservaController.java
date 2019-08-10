@@ -77,8 +77,8 @@ public class TomarReservaController implements ITomarReservaController {
 
 	@Override
 	public ReservaDTO seleccionarReserva(long codigoReserva) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		Reserva reserva = this.cadenaHotelera.seleccionarReserva(codigoReserva, cliente.getNombre());
+		return DTO.getInstance().map(reserva);
 	}
 
 	@Override
