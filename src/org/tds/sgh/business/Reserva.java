@@ -40,7 +40,7 @@ public class Reserva
 	
 	// --------------------------------------------------------------------------------------------
 	
-	public Reserva(GregorianCalendar fechaInicio, GregorianCalendar fechaFin, Boolean modificablePorHuesped, Cliente cliente, Hotel hotel)
+	public Reserva(GregorianCalendar fechaInicio, GregorianCalendar fechaFin, Boolean modificablePorHuesped, Cliente cliente, Hotel hotel, TipoHabitacion tipoHabitacion)
 	{
 		this.codigoReserva = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
 		
@@ -56,7 +56,7 @@ public class Reserva
 		
 		this.huespedes = new HashSet<Huesped>();
 		
-		this.habitacion = new Habitacion();
+		this.habitacion = new Habitacion(tipoHabitacion, "");
 		
 		this.hotel = hotel;
 	}
