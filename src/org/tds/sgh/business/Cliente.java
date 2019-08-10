@@ -18,14 +18,12 @@ public class Cliente
 	
 	private String telefono;
 	
-	private Long codigoCliente;
+	private Map<String, Reserva> reservas;
 	
 	// --------------------------------------------------------------------------------------------
 	
 	public Cliente(String rut, String nombre, String direccion, String telefono, String mail)
 	{
-		this.codigoCliente = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
-		
 		this.direccion = direccion;
 		
 		this.mail = mail;
@@ -35,6 +33,8 @@ public class Cliente
 		this.rut = rut;
 		
 		this.telefono = telefono;
+		
+		this.reservas = new HashMap<String, Reserva>();
 	}
 	
 	// --------------------------------------------------------------------------------------------
@@ -75,22 +75,32 @@ public class Cliente
 		{
 			throw new Exception("Ya existe una reserva con el código indicado.");
 		}
-		
 		this.reservas.put(codigoReserva, reserva);
 	}
 	
-	public Reserva seleccionarReserva(Long codigoReserva) {
+	public Reserva seleccionarReserva(long codigoReserva) {
 		return this.reservas.get(codigoReserva);
 	}
 	
 	public Set<Reserva> obtenerReservasPendientes(){
 		HashSet<Reserva> reservasPendientes = new HashSet<Reserva>();
-		
-		this.reservas.forEach((k, v) -> i[0] += k + v);
-		
-		this.reservas
-		
+		for (Map.Entry<String, Reserva> entry : this.reservas.entrySet()) {
+			Reserva reserva = entry.getValue();
+			if (reserva.getEstado() == EstadoReserva.Pendiente) {
+				reservasPendientes.add(entry.getValue());
+			}
+		}
 		return reservasPendientes;
+	}
+	
+	public Reserva modificarReserva(long codigoReserva, TipoHabitacion tipoHabitacion, GregorianCalendar fechaInicio, GregorianCalendar fechaFin, Boolean modificablePorCliente){
+		Reserva reserva = this.reservas.get(codigoReserva);
+		return reserva.actualizarReserva(tipoHabitacion, fechaInicio, fechaFin, modificablePorCliente);
+	}
+	
+	public Reserva asociarHuesped(long codigoReserva, String nombre, String documento) {
+		Reserva reserva = this.reservas.get(codigoReserva);
+		return reserva.asociarHuesped(nombre, documento);
 	}
 	
 }
