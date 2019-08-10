@@ -70,7 +70,7 @@ public class TomarReservaController implements ITomarReservaController {
 
 	@Override
 	public Set<ReservaDTO> buscarReservasPendientes(String nombreHotel) throws Exception {
-		HashSet<Reserva> reservas = this.buscarReservasPendientes(nombreHotel);
+		HashSet<Reserva> reservas = this.cadenaHotelera.buscarReservasPendientes(nombreHotel);
 		return DTO.getInstance().mapReservas(reservas);
 	}
 
