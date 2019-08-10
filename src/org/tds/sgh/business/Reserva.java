@@ -1,6 +1,7 @@
 package org.tds.sgh.business;
 
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.UUID;
@@ -75,6 +76,10 @@ public class Reserva
 	public void asignarHabitacion(Habitacion habitacion) {
 		this.habitacion = habitacion;
 	}
+	
+	public Reserva actualizarReserva(TipoHabitacion tipoHabitacion, GregorianCalendar fechaInicio, GregorianCalendar fechaFin, Boolean modificablePorCliente) {
+		return this;
+	}
 
 	
 
@@ -85,9 +90,7 @@ public class Reserva
 	public EstadoReserva getEstado() {
 		return this.estado;
 	}
-	public String getCodigoReserva() {
-		return codigoReserva;
-	}
+	
 
 	public void setCodigoReserva(String codigoReserva) {
 		this.codigoReserva = codigoReserva;
@@ -118,13 +121,10 @@ public class Reserva
 	}
 	// --------------------------------------------------------------------------------------------
 
-	public long getCodigoReserva() {
+	public String getCodigoReserva() {
 		return codigoReserva;
 	}
 
-	public void setCodigoReserva(long codigoReserva) {
-		this.codigoReserva = codigoReserva;
-	}
 
 	public GregorianCalendar getFechaInicio() {
 		return fechaInicio;

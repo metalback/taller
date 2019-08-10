@@ -21,6 +21,8 @@ public class CadenaHotelera
 	
 	private Map<String, TipoHabitacion> tiposHabitacion;
 	
+	private Cliente cliente;
+	
 	// --------------------------------------------------------------------------------------------
 	
 	public CadenaHotelera(String nombre)
@@ -158,19 +160,18 @@ public class CadenaHotelera
 		return this.clientes.get(rut);
 	}
 
-	public Boolean confirmarDisponibilidad(String nombreHotel, String nombreTipoHabitacion,
+	public boolean confirmarDisponibilidad(String nombreHotel, String nombreTipoHabitacion,
 			GregorianCalendar fechaInicio, GregorianCalendar fechaFin) {
 		TipoHabitacion tipoHabitacion = this.tiposHabitacion.get(nombreTipoHabitacion);
 		Hotel hotel = this.hoteles.get(nombreHotel);
-		Boolean disponilidad = hotel.confirmarDisponibilidad(tipoHabitacion, fechaInicio, fechaFin);
-		return disponibilidad;
+		return hotel.confirmarDisponibilidad(tipoHabitacion, fechaInicio, fechaFin);
 	}
 
 	public Reserva registrarReserva(String nombreHotel, String nombreTipoHabitacion, GregorianCalendar fechaInicio,
 			GregorianCalendar fechaFin, boolean modificablePorHuesped) {
 		Hotel hotel = this.hoteles.get(nombreHotel);
 		TipoHabitacion tipoHabitacion = this.tiposHabitacion.get(nombreTipoHabitacion);
-		Cliente cliente = this.clientes.get(this.idCliente); // idCliente tengo que obtenerlo de alguna parte
+		Cliente cliente = this.clientes.get(this.cliente.getRut());
 		Reserva reserva =  hotel.crearReserva(cliente, tipoHabitacion, fechaInicio, fechaFin, modificablePorHuesped);
 		return reserva;
 	}
@@ -178,11 +179,9 @@ public class CadenaHotelera
 	public HashSet<Hotel> sugerirAlternativas(String pais, String nombreTipoHabitacion, GregorianCalendar fechaInicio,
 			GregorianCalendar fechaFin) {
 		TipoHabitacion tipoHabitacion = this.tiposHabitacion.get(nombreTipoHabitacion);
-		int cont = 0;
 		HashSet<Hotel> hoteles_sugeridos = new HashSet<Hotel>();
 		
 		for (Map.Entry<String, Hotel> entry : this.hoteles.entrySet()) {
-		    String key = entry.getKey();
 		    Hotel aux_hotel = entry.getValue();
 		    if(aux_hotel.estaEnPais(pais)) {
 				if(aux_hotel.confirmarDisponibilidad(tipoHabitacion, fechaInicio, fechaFin)) {
@@ -221,19 +220,19 @@ public class CadenaHotelera
 		this.nombre = nombre;
 	}
 
-	public HashSet<Reserva> buscarReservasPendientes(String nombreHotel) {
+	public HashSet<Reserva> buscarReservasPendientes(String nombreHotel) throws Exception {
 		Hotel hotel = this.hoteles.get(nombreHotel);
 		HashSet<Reserva> reservas_pendientes = hotel.buscarReservasPendientes();
 		return reservas_pendientes;
 	}
 
-	public Reserva seleccionarReserva(long codigoReserva, String rut) {
+	public Reserva seleccionarReserva(String codigoReserva, String rut) {
 		Cliente cliente = this.seleccionarCliente(rut);
-		return cliente.SeleccionarReserva(codigoReserva);
+		return cliente.seleccionarReserva(codigoReserva);
 		
 	}
 
-	public Reserva registrarHuesped(String rut, String codigoReserva, String nombre, String documento) {
+	public Reserva registrarHuesped(String rut, String codigoReserva, String nombre, String documento) throws Exception {
 		Cliente cliente = this.buscarCliente(rut);
 		return cliente.asociarHuesped(codigoReserva, nombre, documento);
 	}

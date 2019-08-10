@@ -3,17 +3,19 @@ package org.tds.sgh.business;
 public class Habitacion
 {
 	// --------------------------------------------------------------------------------------------
-	private long codigoHabitacion;
+	private TipoHabitacion tipoHabitacion;
 	private String nombre;
 	
 
 	
 	// --------------------------------------------------------------------------------------------
 	
+	public Habitacion() {}
+	
 	public Habitacion(TipoHabitacion tipoHabitacion, String nombre)
 	{
 		this.nombre = nombre;
-		this.nombre = nombre;
+		this.tipoHabitacion = tipoHabitacion;
 		
 
 	}

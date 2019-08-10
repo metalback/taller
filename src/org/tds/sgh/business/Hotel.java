@@ -31,15 +31,9 @@ public class Hotel
 	
 	// --------------------------------------------------------------------------------------------
 	
-	
-	
-	public Hotel(String nombre, String pais, String codigoHotel, String telefono, String direccion) {
-		super();
+	public Hotel(String nombre, String pais) {
 		this.nombre = nombre;
 		this.pais = pais;
-		this.codigoHotel = codigoHotel;
-		this.telefono = telefono;
-		this.direccion = direccion;
 	}
 
 	// --------------------------------------------------------------------------------------------
@@ -77,26 +71,7 @@ public class Hotel
 	public void agregarReserva(Reserva reserva){}
 	
 	public boolean confirmarDisponibilidad(TipoHabitacion tipoHabitacion ,GregorianCalendar fechaInicio, GregorianCalendar fechaFin){
-		for (Map.Entry<String, Habitacion> entry : this.habitaciones.entrySet()) {
-		    String key = entry.getKey();
-		    Object value = entry.getValue();
-		    if(((Reserva) value).getTipoHabitacion().getNombre() == tipoHabitacion.getNombre()) {
-		    	
-		    }
-		}
-		
-		for (Map.Entry<String, Reserva> entry : this.reservas.entrySet()) {
-		    String key = entry.getKey();
-		    Object value = entry.getValue();
-		    if(((Reserva) value).getEstado() == EstadoReserva.NoTomada) {  //ENUM
-		    	
-		    }
-		}
-		
-		//int cantRes = 
-		
-		
-		return false;
+		return true;
 	}
 	
 	public boolean estaEnPais(String pais){
@@ -106,7 +81,7 @@ public class Hotel
 		return false;
 	}
 	
-	public Reserva tomarReserva(String codigoReserva, String rut){
+	public Reserva tomarReserva(String codigoReserva, String rut) throws Exception{
 	    Reserva reserva = this.reservas.get(codigoReserva);
 	    
 	    for (Map.Entry<String, Habitacion> entry : this.habitaciones.entrySet()) {
@@ -137,16 +112,14 @@ public class Hotel
 	
 	
 	///////////////////////////////////////
-	public Map<String, Reserva> buscarReservasPendientes() throws Exception{	
-		
-	
-		HashMap<String, Reserva> reservasPendientes = null;
+	public HashSet<Reserva> buscarReservasPendientes() throws Exception{
+		HashSet<Reserva> reservasPendientes = new HashSet<Reserva>();
 		
 		for (Map.Entry<String, Reserva> entry : this.reservas.entrySet()) {
 		    Reserva reserva = entry.getValue();
 		    if(reserva.getEstado() == EstadoReserva.Pendiente) {  //ENUM
 		    	
-		    	reservasPendientes.put(reserva.getCodigoReserva(), reserva);
+		    	reservasPendientes.add(reserva);
 		    }
 		}
 		
