@@ -1,6 +1,7 @@
 package org.tds.sgh.business;
 
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -29,18 +30,17 @@ public class Hotel implements Cloneable
 	
 	// --------------------------------------------------------------------------------------------
 	
-	public Hotel(String nombre, String pais, String codigoHotel, String telefono, String direccion,
-			Map<String, org.tds.sgh.business.Reserva> reservas,
-			Map<String, org.tds.sgh.business.Habitacion> habitaciones) {
+	
+	
+	public Hotel(String nombre, String pais, String codigoHotel, String telefono, String direccion) {
+		super();
 		this.nombre = nombre;
 		this.pais = pais;
 		this.codigoHotel = codigoHotel;
 		this.telefono = telefono;
 		this.direccion = direccion;
-		this.reservas = reservas;
-		this.habitaciones = habitaciones;
 	}
-	
+
 	// --------------------------------------------------------------------------------------------
 	
 	public Habitacion agregarHabitacion(TipoHabitacion tipoHabitacion, String nombre) throws Exception
@@ -66,7 +66,8 @@ public class Hotel implements Cloneable
 	//////////////////////////////////////////
 	
 	public Reserva crearReserva(Cliente cliente,TipoHabitacion tipoHabitacion ,GregorianCalendar fechaInicio, GregorianCalendar fechaFin,Boolean modificableHuesped){
-		Reserva reserva = new Reserva(fechaInicio, fechaFin, modificableHuesped,cliente,this);
+		Reserva reserva = new Reserva(fechaInicio, fechaFin, modificableHuesped,cliente,this,tipoHabitacion); 
+		
 		this.reservas.put(reserva.getCodigoReserva(), reserva);
 		return reserva;
 	}
@@ -78,7 +79,7 @@ public class Hotel implements Cloneable
 		for (Map.Entry<String, Habitacion> entry : this.habitaciones.entrySet()) {
 		    String key = entry.getKey();
 		    Object value = entry.getValue();
-		    if(value.getTipoHabitacion().getNombre() == tipoHabitacion.getNombre()) {
+		    if(((Reserva) value).getTipoHabitacion().getNombre() == tipoHabitacion.getNombre()) {
 		    	
 		    }
 		}
@@ -86,7 +87,7 @@ public class Hotel implements Cloneable
 		for (Map.Entry<String, Reserva> entry : this.reservas.entrySet()) {
 		    String key = entry.getKey();
 		    Object value = entry.getValue();
-		    if(value.getEstado() == EstadoReserva.NoTomada) {  //ENUM
+		    if(((Reserva) value).getEstado() == EstadoReserva.NoTomada) {  //ENUM
 		    	
 		    }
 		}
@@ -109,17 +110,21 @@ public class Hotel implements Cloneable
 	
 	
 	///////////////////////////////////////
-	public Map<String, Reserva> buscarReservasPendientes(){	
+	public Map<String, Reserva> buscarReservasPendientes() throws Exception{	
 		
 	
-		HashSet<Reserva> reservasPendientes;
+		HashMap<String, Reserva> reservasPendientes = null;
 		
 		for (Map.Entry<String, Reserva> entry : this.reservas.entrySet()) {
-		    String key = entry.getKey();
-		    Object value = entry.getValue();
-		    if(value.getEstado() == EstadoReserva.Pendiente) {  //ENUM
-		    	reservasPendientes.reservas.put(value.getCodigoReserva(), value);
+		    Reserva reserva = entry.getValue();
+		    if(reserva.getEstado() == EstadoReserva.Pendiente) {  //ENUM
+		    	
+		    	reservasPendientes.put(reserva.getCodigoReserva(), reserva);
 		    }
+		}
+		
+		if(reservasPendientes.size() <= 0 || reservasPendientes == null) {
+			throw new Exception("Ya existe un huesped con el documento indicado.");
 		}
 		return reservasPendientes;
 	
@@ -166,21 +171,7 @@ public class Hotel implements Cloneable
 		this.direccion = direccion;
 	}
 
-	public Map<String, Reserva> getReservas() {
-		return reservas;
-	}
-
-	public void setReservas(Map<String, Reserva> reservas) {
-		this.reservas = reservas;
-	}
-
-	public Map<String, Habitacion> getHabitaciones() {
-		return habitaciones;
-	}
-
-	public void setHabitaciones(Map<String, Habitacion> habitaciones) {
-		this.habitaciones = habitaciones;
-	}
+	
 	
 
 }

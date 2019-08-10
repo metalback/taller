@@ -2,14 +2,15 @@ package org.tds.sgh.business;
 
 import java.util.GregorianCalendar;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.UUID;
 
-import org.tds.sgh.system.Reserva;
+
 
 public class Reserva
 {
 	// --------------------------------------------------------------------------------------------
-	private long codigoReserva;
+	private String codigoReserva;
 	
 	private GregorianCalendar fechaInicio;
 	
@@ -35,7 +36,7 @@ public class Reserva
 	
 	public Reserva(GregorianCalendar fechaInicio, GregorianCalendar fechaFin, Boolean modificablePorHuesped, Cliente cliente, Hotel hotel, TipoHabitacion tipoHabitacion)
 	{
-		this.codigoReserva = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
+		this.codigoReserva = String.valueOf(UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE);
 		
 		this.fechaInicio = fechaInicio;
 		
@@ -47,7 +48,7 @@ public class Reserva
 		
 		this.cliente = cliente;
 		
-		this.huespedes = new HashMap<String, Huesped()>;
+		this.huespedes = new HashMap<String, Huesped>();
 		
 		this.habitacion = new Habitacion();
 		
@@ -58,7 +59,7 @@ public class Reserva
 	
 	// --------------------------------------------------------------------------------------------
 	
-	public Reserva asociarHuesped(String nombreHuesped, String documento) {
+	public Reserva asociarHuesped(String nombreHuesped, String documento) throws Exception {
 		if (this.huespedes.containsKey(documento))
 		{
 			throw new Exception("Ya existe un huesped con el documento indicado.");
@@ -79,9 +80,19 @@ public class Reserva
 
 	
 	// --------------------------------------------------------------------------------------------
+	
+	
 	public EstadoReserva getEstado() {
 		return this.estado;
 	}
+	public String getCodigoReserva() {
+		return codigoReserva;
+	}
+
+	public void setCodigoReserva(String codigoReserva) {
+		this.codigoReserva = codigoReserva;
+	}
+
 	public Boolean getModificablePorHuesped() {
 		return this.modificablePorHuesped;
 	}
