@@ -7,6 +7,7 @@ import java.util.Set;
 import org.tds.sgh.business.CadenaHotelera;
 import org.tds.sgh.business.Cliente;
 import org.tds.sgh.business.Hotel;
+import org.tds.sgh.business.Reserva;
 import org.tds.sgh.dtos.ClienteDTO;
 import org.tds.sgh.dtos.DTO;
 import org.tds.sgh.dtos.HotelDTO;
@@ -45,8 +46,8 @@ public class BaseController implements IIdentificarClienteEnRecepcionController 
 
 	public Set<HotelDTO> sugerirAlternativas(String pais, String nombreTipoHabitacion, GregorianCalendar fechaInicio,
 			GregorianCalendar fechaFin) throws Exception {
-		HashSet<Hotel> clientes = (HashSet<Hotel>) this.cadenaHotelera.sugerirAlternativas( pais,nombreTipoHabitacion,fechaInicio,fechaFin);
-		return DTO.getInstance().mapClientes(clientes);
+		HashSet<Hotel> hoteles = (HashSet<Hotel>) this.cadenaHotelera.sugerirAlternativas( pais,nombreTipoHabitacion,fechaInicio,fechaFin);
+		return DTO.getInstance().mapHoteles(hoteles);
 	}
 
 	public ClienteDTO registrarCliente(String rut, String nombre, String direccion, String telefono, String mail)

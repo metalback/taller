@@ -1,9 +1,10 @@
 package org.tds.sgh.business;
 
+import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 
@@ -11,7 +12,7 @@ import java.util.UUID;
 public class Reserva
 {
 	// --------------------------------------------------------------------------------------------
-	private String codigoReserva;
+	private long codigoReserva;
 	
 	private GregorianCalendar fechaInicio;
 	
@@ -37,7 +38,7 @@ public class Reserva
 	
 	public Reserva(GregorianCalendar fechaInicio, GregorianCalendar fechaFin, Boolean modificablePorHuesped, Cliente cliente, Hotel hotel, TipoHabitacion tipoHabitacion)
 	{
-		this.codigoReserva = String.valueOf(UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE);
+		this.codigoReserva = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
 		
 		this.fechaInicio = fechaInicio;
 		
@@ -92,7 +93,7 @@ public class Reserva
 	}
 	
 
-	public void setCodigoReserva(String codigoReserva) {
+	public void setCodigoReserva(long codigoReserva) {
 		this.codigoReserva = codigoReserva;
 	}
 
@@ -104,8 +105,8 @@ public class Reserva
 		this.modificablePorHuesped = modificablePorHuesped;
 	}
 
-	public Map<String, Huesped> getHuespedes() {
-		return this.huespedes;
+	public Collection<Huesped> getHuespedes() {
+		return this.huespedes.values();
 	}
 
 	public void setHuespedes(Map<String, Huesped> huespedes) {
@@ -121,7 +122,7 @@ public class Reserva
 	}
 	// --------------------------------------------------------------------------------------------
 
-	public String getCodigoReserva() {
+	public long getCodigoReserva() {
 		return codigoReserva;
 	}
 

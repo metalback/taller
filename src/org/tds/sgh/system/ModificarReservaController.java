@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.tds.sgh.business.CadenaHotelera;
 import org.tds.sgh.business.Cliente;
+import org.tds.sgh.business.Reserva;
 import org.tds.sgh.dtos.ClienteDTO;
 import org.tds.sgh.dtos.DTO;
 import org.tds.sgh.dtos.HotelDTO;
@@ -28,7 +29,7 @@ public class ModificarReservaController extends BaseController implements IModif
 
 	@Override
 	public Set<ReservaDTO> buscarReservasDelCliente() throws Exception {
-		HashSet<Reserva> reservas = this.cadenaHotelera.buscarReservasDelCliente(this.cliente.getId());
+		Set<Reserva> reservas = this.cadenaHotelera.buscarReservasDelCliente(this.cliente.getRut());
 		return DTO.getInstance().mapReservas(reservas);
 	}
 

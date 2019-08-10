@@ -22,13 +22,10 @@ public class Hotel
 	private String codigoHotel;
 	private String telefono;
 	private String direccion;
-	private Map<String, Reserva> reservas;
+	private Map<Long, Reserva> reservas;
 	private Map<String, Habitacion> habitaciones;
 	
 
-	
-	
-	
 	// --------------------------------------------------------------------------------------------
 	
 	public Hotel(String nombre, String pais) {
@@ -81,14 +78,14 @@ public class Hotel
 		return false;
 	}
 	
-	public Reserva tomarReserva(String codigoReserva, String rut) throws Exception{
+	public Reserva tomarReserva(Long codigoReserva, String rut) throws Exception{
 	    Reserva reserva = this.reservas.get(codigoReserva);
 	    
 	    for (Map.Entry<String, Habitacion> entry : this.habitaciones.entrySet()) {
 	    	boolean disponible = true;
 	        Habitacion habitacionHotel = entry.getValue();
 	        TipoHabitacion tipoHabitacionHotel = habitacionHotel.getTipoHabitacion();
-	        for (Map.Entry<String, Reserva> entry_reserva : this.reservas.entrySet()) {
+	        for (Map.Entry<Long, Reserva> entry_reserva : this.reservas.entrySet()) {
 	            Reserva reserva_aux = entry_reserva.getValue();
 	            if(reserva_aux.getTipoHabitacion().getNombre().equals(tipoHabitacionHotel.getNombre())) {
 	            	if(reserva_aux.getEstado() == EstadoReserva.Tomada){
@@ -115,7 +112,7 @@ public class Hotel
 	public HashSet<Reserva> buscarReservasPendientes() throws Exception{
 		HashSet<Reserva> reservasPendientes = new HashSet<Reserva>();
 		
-		for (Map.Entry<String, Reserva> entry : this.reservas.entrySet()) {
+		for (Map.Entry<Long, Reserva> entry : this.reservas.entrySet()) {
 		    Reserva reserva = entry.getValue();
 		    if(reserva.getEstado() == EstadoReserva.Pendiente) {  //ENUM
 		    	

@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+import org.tds.sgh.dtos.HuespedDTO;
+
 public class Cliente
 {
 	// --------------------------------------------------------------------------------------------
@@ -21,7 +23,7 @@ public class Cliente
 	
 	private String telefono;
 	
-	private Map<String, Reserva> reservas;
+	private Map<Long, Reserva> reservas;
 	
 	// --------------------------------------------------------------------------------------------
 	
@@ -37,7 +39,7 @@ public class Cliente
 		
 		this.telefono = telefono;
 		
-		this.reservas = new HashMap<String, Reserva>();
+		this.reservas = new HashMap<Long, Reserva>();
 	}
 	
 	// --------------------------------------------------------------------------------------------
@@ -73,7 +75,7 @@ public class Cliente
 	}
 	
 	public void agregarReservaAColeccion(Reserva reserva) throws Exception {
-		String codigoReserva = reserva.getCodigoReserva();
+		Long codigoReserva = reserva.getCodigoReserva();
 		if (this.reservas.containsKey(codigoReserva))
 		{
 			throw new Exception("Ya existe una reserva con el código indicado.");
@@ -81,13 +83,13 @@ public class Cliente
 		this.reservas.put(codigoReserva, reserva);
 	}
 	
-	public Reserva seleccionarReserva(String codigoReserva) {
+	public Reserva seleccionarReserva(Long codigoReserva) {
 		return this.reservas.get(codigoReserva);
 	}
 	
 	public Set<Reserva> obtenerReservasPendientes(){
 		HashSet<Reserva> reservasPendientes = new HashSet<Reserva>();
-		for (Map.Entry<String, Reserva> entry : this.reservas.entrySet()) {
+		for (Map.Entry<Long, Reserva> entry : this.reservas.entrySet()) {
 			Reserva reserva = entry.getValue();
 			if (reserva.getEstado() == EstadoReserva.Pendiente) {
 				reservasPendientes.add(entry.getValue());
@@ -101,7 +103,7 @@ public class Cliente
 		return reserva.actualizarReserva(tipoHabitacion, fechaInicio, fechaFin, modificablePorCliente);
 	}
 	
-	public Reserva asociarHuesped(String codigoReserva, String nombre, String documento) throws Exception {
+	public Reserva asociarHuesped(Long codigoReserva, String nombre, String documento) throws Exception {
 		Reserva reserva = this.reservas.get(codigoReserva);
 		return reserva.asociarHuesped(nombre, documento);
 	}
@@ -128,8 +130,18 @@ public class Cliente
 		this.telefono = telefono;
 	}
 
-	public void setReservas(Map<String, Reserva> reservas) {
+	public void setReservas(Map<Long, Reserva> reservas) {
 		this.reservas = reservas;
 	}
+
+	public Set<Reserva> getReservas() {
+		Set<Reserva> reservas = new HashSet<Reserva>();	
+		for  ( Reserva r : this.reservas.values()) {
+			reservas.add(r);
+		}
+		return reservas;
+	}
+	
+	
 	
 }

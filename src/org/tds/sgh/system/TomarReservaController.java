@@ -49,13 +49,13 @@ public class TomarReservaController extends BaseController implements ITomarRese
 
 	@Override
 	public ReservaDTO registrarHuesped(String nombre, String documento) throws Exception {
-		Reserva reserva = this.cadenaHotelera.registrarHuesped(cliente.getRut(), reserva.getCodigoReserva(), nombre, documento);
+		Reserva reserva = this.cadenaHotelera.registrarHuesped(this.cliente.getRut(), this.reserva.getCodigoReserva(), nombre, documento);
 		return DTO.getInstance().map(reserva);
 	}
 
 	@Override
 	public ReservaDTO tomarReserva() throws Exception {
-		Reserva reserva  = this.cadenaHotelera.tomarReserva(reserva.getCodigoReserva(), cliente.getRut());
+		Reserva reserva  = this.cadenaHotelera.tomarReserva(this.reserva.getCodigoReserva(), cliente.getRut());
 		return DTO.getInstance().map(reserva);
 	}
 }

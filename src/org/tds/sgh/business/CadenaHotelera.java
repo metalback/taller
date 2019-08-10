@@ -1,11 +1,12 @@
 package org.tds.sgh.business;
 
-import org.tds.sgh.*;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import org.tds.sgh.system.Reserva;
 
 
 public class CadenaHotelera
@@ -21,6 +22,8 @@ public class CadenaHotelera
 	private Map<String, TipoHabitacion> tiposHabitacion;
 	
 	private Cliente cliente;
+	
+	private Hotel hotel;
 	
 	// --------------------------------------------------------------------------------------------
 	
@@ -218,21 +221,45 @@ public class CadenaHotelera
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public Hotel getHotel() {
+		return hotel;
+	}
+
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
+	}
 
 	public HashSet<Reserva> buscarReservasPendientes(String nombreHotel) throws Exception {
 		Hotel hotel = this.hoteles.get(nombreHotel);
 		HashSet<Reserva> reservas_pendientes = hotel.buscarReservasPendientes();
 		return reservas_pendientes;
 	}
+	public Set<Reserva> buscarReservasDelCliente(String rutCliente){
+		Cliente cliente = this.clientes.get(rutCliente);
+		return cliente.getReservas();
+	}
 
-	public Reserva seleccionarReserva(String codigoReserva, String rut) {
+	public Reserva seleccionarReserva(Long codigoReserva, String rut) {
 		Cliente cliente = this.seleccionarCliente(rut);
 		return cliente.seleccionarReserva(codigoReserva);
 		
 	}
 
-	public Reserva registrarHuesped(String rut, String codigoReserva, String nombre, String documento) throws Exception {
+	public Reserva registrarHuesped(String rut, Long codigoReserva, String nombre, String documento) throws Exception {
 		Cliente cliente = this.buscarCliente(rut);
 		return cliente.asociarHuesped(codigoReserva, nombre, documento);
+	}
+	
+	public Reserva tomarReserva(Long codigoReserva, String rut) throws Exception {
+		return this.hotel.tomarReserva(codigoReserva, rut);
 	}
 }

@@ -1,11 +1,16 @@
 package org.tds.sgh.dtos;
 
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.tds.sgh.business.Cliente;
 import org.tds.sgh.business.Habitacion;
 import org.tds.sgh.business.Hotel;
+import org.tds.sgh.business.Huesped;
+import org.tds.sgh.business.Reserva;
 import org.tds.sgh.business.TipoHabitacion;
 
 
@@ -29,7 +34,27 @@ public class DTO
 	}
 	
 	// --------------------------------------------------------------------------------------------
-	
+	public ReservaDTO map(Reserva reserva)
+	{
+		List<HuespedDTO> huespedes = new ArrayList<>();
+		
+		for  ( Huesped h : reserva.getHuespedes()) {
+			huespedes.add(new HuespedDTO(h.getNombre(), h.getDocumento()));
+		}
+		
+		
+		return new ReservaDTO(
+			reserva.getCodigoReserva(),
+			reserva.getCliente().getNombre(),
+			reserva.getHotel().getNombre(),
+			reserva.getTipoHabitacion().getNombre(),
+			reserva.getFechaInicio(),
+			reserva.getFechaFin(),
+			reserva.getModificablePorHuesped(),
+			reserva.getEstado().toString(),
+			reserva.getHabitacion().getNombre(),
+			huespedes.toArray(new HuespedDTO[huespedes.size()]));
+	}
 	public ClienteDTO map(Cliente cliente)
 	{
 		return new ClienteDTO(
@@ -101,5 +126,16 @@ public class DTO
 		}
 		
 		return tiposHabitacionDTO;
+	}
+	
+	
+	public Set<ReservaDTO> mapReservas(Set<Reserva> reservas)
+	{
+		Set<ReservaDTO> reservasDTO = new HashSet<ReservaDTO>();
+		for (Reserva reserva: reservas)
+		{
+			reservasDTO.add(this.map(reserva));
+		}
+		return reservasDTO;
 	}
 }
