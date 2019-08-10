@@ -9,15 +9,6 @@ import org.tds.sgh.system.Reserva;
 public class Reserva
 {
 	// --------------------------------------------------------------------------------------------
-	
-	private enum EstadoReserva {
-		Pendiente,
-		Tomada,
-		Finalizada,
-		Cancelada,
-		NoTomada
-	}
-	
 	private long codigoReserva;
 	
 	private GregorianCalendar fechaInicio;
@@ -26,13 +17,15 @@ public class Reserva
 	
 	private Boolean modificablePorHuesped;
 	
-	private String estado;
+	private EstadoReserva estado;
 	
 	private Cliente cliente;
 	
-	private HashSet<Huesped> huespedes;
+	private Map<String, Huesped> huespedes;
 	
 	private Habitacion habitacion;
+	
+	private TipoHabitacion tipoHabitacion;
 	
 	private Hotel hotel;
 	
@@ -54,9 +47,11 @@ public class Reserva
 		
 		this.cliente = cliente;
 		
-		this.huespedes = new HashSet<Huesped>();
+		this.huespedes = new HashMap<String, Huesped()>;
 		
-		this.habitacion = new Habitacion(tipoHabitacion, "");
+		this.habitacion = new Habitacion();
+		
+		this.tipoHabitacion = tipoHabitacion;
 		
 		this.hotel = hotel;
 	}
@@ -64,8 +59,13 @@ public class Reserva
 	// --------------------------------------------------------------------------------------------
 	
 	public Reserva asociarHuesped(String nombreHuesped, String documento) {
+		if (this.huespedes.containsKey(documento))
+		{
+			throw new Exception("Ya existe un huesped con el documento indicado.");
+		}
+		
 		Huesped huesped = new Huesped(nombreHuesped, documento);
-		this.huespedes.add(huesped);
+		this.huespedes.put(documento, huesped);
 		return this;
 	}
 	
@@ -73,12 +73,37 @@ public class Reserva
 		this.estado = EstadoReserva.Tomada;
 	}
 	
-	public String getEstado() {
+	public EstadoReserva getEstado() {
 		return this.estado;
 	}
 	
 	public void asignarHabitacion(Habitacion habitacion) {
 		this.habitacion = habitacion;
 	}
+
+	public Boolean getModificablePorHuesped() {
+		return modificablePorHuesped;
+	}
+
+	public void setModificablePorHuesped(Boolean modificablePorHuesped) {
+		this.modificablePorHuesped = modificablePorHuesped;
+	}
+
+	public Map<String, Huesped> getHuespedes() {
+		return huespedes;
+	}
+
+	public void setHuespedes(Map<String, Huesped> huespedes) {
+		this.huespedes = huespedes;
+	}
+
+	public TipoHabitacion getTipoHabitacion() {
+		return tipoHabitacion;
+	}
+
+	public void setTipoHabitacion(TipoHabitacion tipoHabitacion) {
+		this.tipoHabitacion = tipoHabitacion;
+	}
+	
 	
 }
