@@ -99,10 +99,7 @@ public class Cliente
 		return reserva.actualizarReserva(tipoHabitacion, fechaInicio, fechaFin, modificablePorCliente);
 	}
 	
-	public Reserva asociarHuesped(Long codigoReserva, String nombre, String documento) throws Exception {
-		Reserva reserva = this.reservas.get(codigoReserva);
-		return reserva.asociarHuesped(nombre, documento);
-	}
+	
 
 	// --------------------------------------------------------------------------------------------
 

@@ -182,6 +182,10 @@ public class Hotel
 		this.direccion = direccion;
 	}
 
+	public Reserva buscarReservas(Long codigoReserva) {
+		return this.reservas.get(codigoReserva);
+	}
+
 	
 	
 

@@ -63,16 +63,7 @@ public class Reserva
 	
 	// --------------------------------------------------------------------------------------------
 	
-	public Reserva asociarHuesped(String nombreHuesped, String documento) throws Exception {
-		if (this.huespedes.containsKey(documento))
-		{
-			throw new Exception("Ya existe un huesped con el documento indicado.");
-		}
-		
-		Huesped huesped = new Huesped(nombreHuesped, documento);
-		this.huespedes.put(documento, huesped);
-		return this;
-	}
+	
 	public void cambiarEstadoTomada() {
 		this.estado = EstadoReserva.Tomada;
 	}
@@ -90,7 +81,9 @@ public class Reserva
 			Infrastructure.getInstance().getCalendario().esPosterior(this.fechaFin, fechaInicio));
 	}
 	
-
+	public void asociarHuesped(String nombre, String documento){
+		this.huespedes.put(documento, new Huesped(nombre, documento));
+	}
 	
 	// --------------------------------------------------------------------------------------------
 	

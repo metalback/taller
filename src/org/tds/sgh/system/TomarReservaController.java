@@ -22,8 +22,7 @@ public class TomarReservaController extends BaseController implements ITomarRese
 	
 	@Override
 	public Set<ReservaDTO> buscarReservasDelCliente() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return DTO.getInstance().mapReservas(this.cliente.getReservas());
 	}
 
 	@Override
@@ -41,22 +40,22 @@ public class TomarReservaController extends BaseController implements ITomarRese
 
 	@Override
 	public ReservaDTO seleccionarReserva(long codigoReserva) throws Exception {
-		Reserva reserva = this.cadenaHotelera.seleccionarReserva(codigoReserva, cliente.getRut());
+		Reserva reserva = this.cadenaHotelera.seleccionarReserva(codigoReserva);
 		this.reserva = reserva;
 		return DTO.getInstance().map(reserva);
 	}
 
 	@Override
 	public ReservaDTO registrarHuesped(String nombre, String documento) throws Exception {
-		Reserva reserva = this.cadenaHotelera.registrarHuesped(this.cliente.getRut(), this.reserva.getCodigoReserva(), nombre, documento);
+		Reserva reserva = this.cadenaHotelera.registrarHuesped(this.reserva.getCodigoReserva(), nombre, documento);
 		this.reserva = reserva;
 		return DTO.getInstance().map(reserva);
 	}
 
 	@Override
 	public ReservaDTO tomarReserva() throws Exception {
-		Reserva reserva  = this.cadenaHotelera.tomarReserva(this.reserva.getCodigoReserva(), cliente.getRut(), this.reserva.getHotel());
-		Infrastructure.getInstance().getSistemaMensajeria().enviarMail(cliente.getMail(), "", "");
+		Reserva reserva  = this.cadenaHotelera.tomarReserva(this.reserva.getCodigoReserva());
+		Infrastructure.getInstance().getSistemaMensajeria().enviarMail(reserva.getCliente().getMail(), "", "");
 		Infrastructure.getInstance().getSistemaFacturacion().iniciarEstadia(DTO.getInstance().map(reserva));
 		return DTO.getInstance().map(reserva);
 	}

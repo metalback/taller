@@ -257,13 +257,38 @@ public class CadenaHotelera
 		return cliente.seleccionarReserva(codigoReserva);
 		
 	}
+	
+	public Reserva seleccionarReserva(Long codigoReserva) {
+		for(Hotel h: this.hoteles.values()) {
+			Reserva r = h.buscarReservas(codigoReserva);
+			if(r != null) {
+				return r;
+			}
+		}
+		return null;
+	}
 
-	public Reserva registrarHuesped(String rut, Long codigoReserva, String nombre, String documento) throws Exception {
-		Cliente cliente = this.buscarCliente(rut);
-		return cliente.asociarHuesped(codigoReserva, nombre, documento);
+	public Reserva registrarHuesped(Long codigoReserva, String nombre, String documento) throws Exception {
+		Reserva r = null;
+		for(Hotel h: this.hoteles.values()) {
+			r = h.buscarReservas(codigoReserva);
+			if(r != null) {
+				break;
+			}
+		}
+		r.asociarHuesped(nombre, documento);
+		return r;
 	}
 	
-	public Reserva tomarReserva(Long codigoReserva, String rut, Hotel hotel) throws Exception {
-		return hotel.tomarReserva(codigoReserva, rut);
+	public Reserva tomarReserva(Long codigoReserva) throws Exception {
+		Reserva r = null;
+		for(Hotel h: this.hoteles.values()) {
+			r = h.buscarReservas(codigoReserva);
+			if(r != null) {
+				break;
+			}
+		}
+		r.getHotel().tomarReserva(codigoReserva, r.getCliente().getRut());
+		return r;
 	}
 }

@@ -11,6 +11,7 @@ import org.tds.sgh.dtos.ClienteDTO;
 import org.tds.sgh.dtos.DTO;
 import org.tds.sgh.dtos.HotelDTO;
 import org.tds.sgh.dtos.ReservaDTO;
+import org.tds.sgh.infrastructure.NotImplementedException;
 
 public class ModificarReservaController extends BaseController implements IModificarReservaController {
 	
@@ -23,8 +24,7 @@ public class ModificarReservaController extends BaseController implements IModif
 
 	@Override
 	public ClienteDTO seleccionarCliente(String rut) throws Exception {
-		
-		return null;
+		throw new NotImplementedException();
 	}
 
 	@Override
