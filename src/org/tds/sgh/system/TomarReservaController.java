@@ -15,6 +15,7 @@ import org.tds.sgh.dtos.ReservaDTO;
 public class TomarReservaController implements ITomarReservaController {
 	private CadenaHotelera cadenaHotelera;
 	private Cliente cliente;
+	private Reserva reserva;
 	
 	@Override
 	public Set<ReservaDTO> buscarReservasDelCliente() throws Exception {
@@ -89,7 +90,7 @@ public class TomarReservaController implements ITomarReservaController {
 
 	@Override
 	public ReservaDTO tomarReserva() throws Exception {
-		Reserva reserva  = this.cadenaHotelera.tomarReserva(reserva.getId(), cliente.getNombre());
+		Reserva reserva  = this.cadenaHotelera.tomarReserva(reserva.getCodigoReserva(), cliente.getNombre());
 		return DTO.getInstance().map(reserva);
 	}
 	
