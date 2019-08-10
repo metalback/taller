@@ -1,5 +1,7 @@
 package org.tds.sgh.business;
 
+import java.util.UUID;
+
 public class Cliente
 {
 	// --------------------------------------------------------------------------------------------
@@ -14,10 +16,14 @@ public class Cliente
 	
 	private String telefono;
 	
+	private Long codigoCliente;
+	
 	// --------------------------------------------------------------------------------------------
 	
 	public Cliente(String rut, String nombre, String direccion, String telefono, String mail)
 	{
+		this.codigoCliente = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
+		
 		this.direccion = direccion;
 		
 		this.mail = mail;
@@ -60,4 +66,10 @@ public class Cliente
 	{
 		return this.telefono;
 	}
+	
+	public Long getCodigoCliente() 
+	{
+		return this.codigoCliente;
+	}
+	
 }
