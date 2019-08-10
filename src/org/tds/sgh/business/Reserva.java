@@ -30,9 +30,11 @@ public class Reserva
 	
 	private Cliente cliente;
 	
-	private HashSet<Huesped> huespedes;
+	private Map<String, Huesped> huespedes;
 	
 	private Habitacion habitacion;
+	
+	private TipoHabitacion tipoHabitacion;
 	
 	private Hotel hotel;
 	
@@ -54,9 +56,11 @@ public class Reserva
 		
 		this.cliente = cliente;
 		
-		this.huespedes = new HashSet<Huesped>();
+		this.huespedes = new HashMap<String, Huesped()>;
 		
-		this.habitacion = new Habitacion(tipoHabitacion, "");
+		this.habitacion = new Habitacion();
+		
+		this.tipoHabitacion = tipoHabitacion;
 		
 		this.hotel = hotel;
 	}
@@ -64,8 +68,13 @@ public class Reserva
 	// --------------------------------------------------------------------------------------------
 	
 	public Reserva asociarHuesped(String nombreHuesped, String documento) {
+		if (this.huespedes.containsKey(documento))
+		{
+			throw new Exception("Ya existe un huesped con el documento indicado.");
+		}
+		
 		Huesped huesped = new Huesped(nombreHuesped, documento);
-		this.huespedes.add(huesped);
+		this.huespedes.put(documento, huesped);
 		return this;
 	}
 	
