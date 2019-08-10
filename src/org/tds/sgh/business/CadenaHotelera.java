@@ -1,12 +1,11 @@
 package org.tds.sgh.business;
 
+import org.tds.sgh.*;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-import org.tds.sgh.system.Reserva;
 
 
 public class CadenaHotelera
