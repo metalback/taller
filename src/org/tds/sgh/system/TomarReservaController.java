@@ -31,8 +31,8 @@ public class TomarReservaController implements ITomarReservaController {
 
 	@Override
 	public ClienteDTO seleccionarCliente(String rut) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		Cliente cliente = this.cadenaHotelera.seleccionarCliente(rut);
+		return DTO.getInstance().map(cliente);
 	}
 
 	@Override
