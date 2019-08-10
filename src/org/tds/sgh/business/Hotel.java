@@ -4,12 +4,13 @@ import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import org.tds.sgh.*;
+import org.tds.sgh.infrastructure.Infrastructure;
 
 
 
 
-
-public class Hotel implements Cloneable
+public class Hotel
 {
 	// --------------------------------------------------------------------------------------------
 	
@@ -104,7 +105,33 @@ public class Hotel implements Cloneable
 		return false;
 	}
 	
-	public boolean tomarReserva(long idReserva, long idCliente){return false;}
+	public Reserva tomarReserva(String codigoReserva, String rut){
+	    Reserva reserva = this.reservas.get(codigoReserva);
+	    
+	    for (Map.Entry<String, Habitacion> entry : this.habitaciones.entrySet()) {
+	    	boolean disponible = true;
+	        Habitacion habitacionHotel = entry.getValue();
+	        TipoHabitacion tipoHabitacionHotel = habitacionHotel.getTipoHabitacion();
+	        for (Map.Entry<String, Reserva> entry_reserva : this.reservas.entrySet()) {
+	            Reserva reserva_aux = entry_reserva.getValue();
+	            if(reserva_aux.getTipoHabitacion().getNombre().equals(tipoHabitacionHotel.getNombre())) {
+	            	if(reserva_aux.getEstado() == EstadoReserva.Tomada){
+	            		if(reserva_aux.getHabitacion().getNombre().equals(habitacionHotel.getNombre())) {
+	            			disponible = false;
+	            			break;
+	            		}
+	            	}
+	            }
+	        }
+	        
+	        if(disponible){
+	        	reserva.asignarHabitacion(habitacionHotel);
+	        	reserva.cambiarEstadoTomada();
+	        	return reserva;
+	        }
+	    }
+	    throw new Exception("El hotel no cuenta con habitaciones disponibles para asignar a la reserva.");
+	}
 	
 	
 	
