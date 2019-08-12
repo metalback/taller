@@ -299,4 +299,9 @@ public class CadenaHotelera
 		return reserva;
 		
 	}
+
+	public Reserva cancelarReservaDelCliente(Reserva reserva) {
+		return reserva.cancelar();
+				
+	}
 }

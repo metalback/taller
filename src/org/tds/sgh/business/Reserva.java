@@ -82,8 +82,8 @@ public class Reserva
 
 	public boolean coincide(TipoHabitacion tipoHabitacion, GregorianCalendar fechaInicio, GregorianCalendar fechaFin) {
 		return this.tipoHabitacion == tipoHabitacion && 
-			!(Infrastructure.getInstance().getCalendario().esAnterior(fechaFin, this.fechaInicio) && 
-			Infrastructure.getInstance().getCalendario().esPosterior(this.fechaFin, fechaInicio));
+			(Infrastructure.getInstance().getCalendario().esAnterior(fechaInicio, this.fechaFin) && 
+			Infrastructure.getInstance().getCalendario().esAnterior(this.fechaInicio, fechaFin));
 	}
 	
 	public void asociarHuesped(String nombre, String documento){
@@ -174,6 +174,11 @@ public class Reserva
 
 	public void setEstado(EstadoReserva estado) {
 		this.estado = estado;
+	}
+
+	public Reserva cancelar() {
+		this.setEstado(EstadoReserva.Cancelada);
+		return this;
 	}
 	
 	

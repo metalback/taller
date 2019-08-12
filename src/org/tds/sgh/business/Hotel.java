@@ -73,7 +73,7 @@ public class Hotel
 		int contarHabitacionMismoTipo = 0;
 		int contarHabitacionConReserva = 0;
 		for(Habitacion h: this.habitaciones.values()) {
-			if(h.getTipoHabitacion() == tipoHabitacion) {
+			if(h.getTipoHabitacion().getNombre().equals(tipoHabitacion.getNombre())) {
 				contarHabitacionMismoTipo++;
 			}
 		}

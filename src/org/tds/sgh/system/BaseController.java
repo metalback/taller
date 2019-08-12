@@ -36,7 +36,7 @@ public class BaseController implements IIdentificarClienteEnRecepcionController 
 
 	public boolean confirmarDisponibilidad(String nombreHotel, String nombreTipoHabitacion,
 			GregorianCalendar fechaInicio, GregorianCalendar fechaFin) throws Exception {
-		Boolean disponibilidad = this.cadenaHotelera.confirmarDisponibilidad(nombreHotel, nombreTipoHabitacion, fechaInicio, fechaFin);
+		boolean disponibilidad = this.cadenaHotelera.confirmarDisponibilidad(nombreHotel, nombreTipoHabitacion, fechaInicio, fechaFin);
 		return disponibilidad;
 	}
 	
