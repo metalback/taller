@@ -22,7 +22,7 @@ public class ModificarReservaController extends BaseController implements IModif
 	public ReservaDTO modificarReserva(String nombreHotel, String nombreTipoHabitacion, GregorianCalendar fechaInicio,
 			GregorianCalendar fechaFin, boolean modificablePorHuesped) throws Exception {
 		Cliente cliente = this.reserva.getCliente();
-		Reserva reserva = this.cadenaHotelera.modificarReserva(cliente, this.reserva.getCodigoReserva(), nombreTipoHabitacion, fechaInicio, fechaFin, modificablePorHuesped);
+		Reserva reserva = this.cadenaHotelera.modificarReserva(nombreHotel, cliente, this.reserva.getCodigoReserva(), nombreTipoHabitacion, fechaInicio, fechaFin, modificablePorHuesped);
 		return DTO.getInstance().map(reserva);
 	}
 

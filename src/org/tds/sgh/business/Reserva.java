@@ -71,11 +71,12 @@ public class Reserva
 		this.habitacion = habitacion;
 	}
 	
-	public Reserva actualizarReserva(TipoHabitacion tipoHabitacion, GregorianCalendar fechaInicio, GregorianCalendar fechaFin, Boolean modificablePorCliente) {
+	public Reserva actualizarReserva(Hotel hotel, TipoHabitacion tipoHabitacion, GregorianCalendar fechaInicio, GregorianCalendar fechaFin, Boolean modificablePorCliente) {
 		this.setTipoHabitacion(tipoHabitacion);
 		this.setFechaInicio(fechaInicio);
 		this.setFechaFin(fechaFin);
 		this.setModificablePorHuesped(modificablePorCliente);
+		this.setHotel(hotel);
 		Infrastructure.getInstance().getSistemaMensajeria().enviarMail(this.getCliente().getMail(), "", "");
 		return this;
 	}

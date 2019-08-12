@@ -292,10 +292,11 @@ public class CadenaHotelera
 		return r;
 	}
 
-	public Reserva modificarReserva(Cliente cliente, long codigoReserva, String nombreTipoHabitacion,
+	public Reserva modificarReserva(String nombreHotel, Cliente cliente, long codigoReserva, String nombreTipoHabitacion,
 			GregorianCalendar fechaInicio, GregorianCalendar fechaFin, boolean modificablePorHuesped) throws Exception {
 		TipoHabitacion tipoHabitacion = this.buscarTipoHabitacion(nombreTipoHabitacion);
-		Reserva reserva = cliente.modificarReserva(codigoReserva, tipoHabitacion, fechaInicio, fechaFin, modificablePorHuesped);
+		Hotel hotel = this.buscarHotel(nombreHotel);
+		Reserva reserva = cliente.modificarReserva(hotel, codigoReserva, tipoHabitacion, fechaInicio, fechaFin, modificablePorHuesped);
 		return reserva;
 		
 	}

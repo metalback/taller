@@ -94,9 +94,9 @@ public class Cliente
 		return reservasPendientes;
 	}
 	
-	public Reserva modificarReserva(long codigoReserva, TipoHabitacion tipoHabitacion, GregorianCalendar fechaInicio, GregorianCalendar fechaFin, Boolean modificablePorCliente){
+	public Reserva modificarReserva(Hotel hotel, long codigoReserva, TipoHabitacion tipoHabitacion, GregorianCalendar fechaInicio, GregorianCalendar fechaFin, Boolean modificablePorCliente){
 		Reserva reserva = this.reservas.get(codigoReserva);
-		return reserva.actualizarReserva(tipoHabitacion, fechaInicio, fechaFin, modificablePorCliente);
+		return reserva.actualizarReserva(hotel, tipoHabitacion, fechaInicio, fechaFin, modificablePorCliente);
 	}
 	
 	
