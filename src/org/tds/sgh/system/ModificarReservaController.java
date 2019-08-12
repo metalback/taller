@@ -15,36 +15,15 @@ import org.tds.sgh.infrastructure.NotImplementedException;
 
 public class ModificarReservaController extends BaseController implements IModificarReservaController {
 	
-	Cliente cliente;
-	
 	public ModificarReservaController(CadenaHotelera cadenaHotelera) {
 		super(cadenaHotelera);
 	}
 
-
-	@Override
-	public ClienteDTO seleccionarCliente(String rut) throws Exception {
-		throw new NotImplementedException();
-	}
-
-	@Override
-	public Set<ReservaDTO> buscarReservasDelCliente() throws Exception {
-		Set<Reserva> reservas = this.cadenaHotelera.buscarReservasDelCliente(this.cliente.getRut());
-		return DTO.getInstance().mapReservas(reservas);
-	}
-
-	@Override
-	public ReservaDTO seleccionarReserva(long codigoReserva) throws Exception {
-		
-		return null;
-	}
-
-
-	@Override
 	public ReservaDTO modificarReserva(String nombreHotel, String nombreTipoHabitacion, GregorianCalendar fechaInicio,
 			GregorianCalendar fechaFin, boolean modificablePorHuesped) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		Cliente cliente = this.reserva.getCliente();
+		Reserva reserva = this.cadenaHotelera.modificarReserva(cliente, this.reserva.getCodigoReserva(), nombreTipoHabitacion, fechaInicio, fechaFin, modificablePorHuesped);
+		return DTO.getInstance().map(reserva);
 	}
 
 }

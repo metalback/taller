@@ -13,6 +13,7 @@ import org.tds.sgh.dtos.DTO;
 import org.tds.sgh.dtos.HotelDTO;
 import org.tds.sgh.dtos.ReservaDTO;
 import org.tds.sgh.infrastructure.Infrastructure;
+import org.tds.sgh.infrastructure.NotImplementedException;
 
 public class TomarReservaController extends BaseController implements ITomarReservaController {
 	
@@ -20,39 +21,22 @@ public class TomarReservaController extends BaseController implements ITomarRese
 		super(cadenaHotelera);
 	}
 	
-	@Override
-	public Set<ReservaDTO> buscarReservasDelCliente() throws Exception {
-		return DTO.getInstance().mapReservas(this.cliente.getReservas());
-	}
-
-	@Override
 	public ReservaDTO modificarReserva(String nombreHotel, String nombreTipoHabitacion, GregorianCalendar fechaInicio,
 			GregorianCalendar fechaFin, boolean modificablePorHuesped) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		throw new NotImplementedException();
 	}
 
-	@Override
 	public Set<ReservaDTO> buscarReservasPendientes(String nombreHotel) throws Exception {
 		HashSet<Reserva> reservas = this.cadenaHotelera.buscarReservasPendientes(nombreHotel);
 		return DTO.getInstance().mapReservas(reservas);
 	}
 
-	@Override
-	public ReservaDTO seleccionarReserva(long codigoReserva) throws Exception {
-		Reserva reserva = this.cadenaHotelera.seleccionarReserva(codigoReserva);
-		this.reserva = reserva;
-		return DTO.getInstance().map(reserva);
-	}
-
-	@Override
 	public ReservaDTO registrarHuesped(String nombre, String documento) throws Exception {
 		Reserva reserva = this.cadenaHotelera.registrarHuesped(this.reserva.getCodigoReserva(), nombre, documento);
 		this.reserva = reserva;
 		return DTO.getInstance().map(reserva);
 	}
 
-	@Override
 	public ReservaDTO tomarReserva() throws Exception {
 		Reserva reserva  = this.cadenaHotelera.tomarReserva(this.reserva.getCodigoReserva());
 		Infrastructure.getInstance().getSistemaMensajeria().enviarMail(reserva.getCliente().getMail(), "", "");

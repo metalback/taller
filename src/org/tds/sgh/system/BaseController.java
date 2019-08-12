@@ -62,4 +62,15 @@ public class BaseController implements IIdentificarClienteEnRecepcionController 
 		return DTO.getInstance().map(cliente);
 	}
 
+	public Set<ReservaDTO> buscarReservasDelCliente() throws Exception {
+		Set<Reserva> reservas = this.cadenaHotelera.buscarReservasDelCliente(this.cliente.getRut());
+		return DTO.getInstance().mapReservas(reservas);
+	}
+	
+	public ReservaDTO seleccionarReserva(long codigoReserva) throws Exception {
+		Reserva reserva = this.cadenaHotelera.seleccionarReserva(codigoReserva);
+		this.reserva = reserva;
+		return DTO.getInstance().map(reserva);
+	}
+
 }
