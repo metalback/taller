@@ -135,10 +135,12 @@ public class Cliente
 	public Set<Reserva> getReservas() {
 		Set<Reserva> reservas = new HashSet<Reserva>();	
 		for  ( Reserva r : this.reservas.values()) {
-			if(Infrastructure.getInstance().getCalendario().esPosterior(r.getFechaInicio(), Infrastructure.getInstance().getCalendario().getHoy())
-					|| Infrastructure.getInstance().getCalendario().esHoy(r.getFechaInicio())) {
-				reservas.add(r);
-			}			
+			if(r.getEstado() == EstadoReserva.Pendiente) {
+				if(Infrastructure.getInstance().getCalendario().esPosterior(r.getFechaInicio(), Infrastructure.getInstance().getCalendario().getHoy())
+						|| Infrastructure.getInstance().getCalendario().esHoy(r.getFechaInicio())) {
+					reservas.add(r);
+				}
+			}		
 		}
 		return reservas;
 	}
