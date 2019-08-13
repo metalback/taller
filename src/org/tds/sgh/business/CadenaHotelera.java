@@ -321,4 +321,23 @@ public class CadenaHotelera
 		return reserva.cancelar();
 				
 	}
+
+	public boolean confirmarDisponibilidad(Reserva reserva, String nombreHotel, String nombreTipoHabitacion,
+			GregorianCalendar fechaInicio, GregorianCalendar fechaFin) throws Exception {
+		if(this.tiposHabitacion.isEmpty() || this.tiposHabitacion.get(nombreTipoHabitacion) == null) {
+			throw new Exception("No existe el tipo de habitación solicitado.");
+		}
+
+		if(Infrastructure.getInstance().getCalendario().esPasada(fechaInicio)) {
+			throw new Exception("La fecha indicada es pasada");
+		}
+		
+		if(Infrastructure.getInstance().getCalendario().esPosterior(fechaInicio, fechaFin)) {
+			throw new Exception("La fecha de inicio es superior a la fecha de fin");
+		}
+		
+		TipoHabitacion tipoHabitacion = this.tiposHabitacion.get(nombreTipoHabitacion);
+		Hotel hotel = this.hoteles.get(nombreHotel);
+		return hotel.confirmarDisponibilidad(reserva, tipoHabitacion, fechaInicio, fechaFin);
+	}
 }

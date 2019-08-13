@@ -24,6 +24,9 @@ public class BaseController implements IIdentificarClienteEnRecepcionController 
 	} 
 
 	public Set<ClienteDTO> buscarCliente(String patronNombreCliente) {
+		if(patronNombreCliente == null) {
+			throw new NullPointerException("El patron de busqueda no puede ser nulo");
+		}
 		HashSet<Cliente> clientes = (HashSet<Cliente>) this.cadenaHotelera.buscarClientes(patronNombreCliente);
 		return DTO.getInstance().mapClientes(clientes);
 	}

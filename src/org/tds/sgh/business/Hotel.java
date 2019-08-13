@@ -186,7 +186,22 @@ public class Hotel
 		return this.reservas.get(codigoReserva);
 	}
 
+	public boolean confirmarDisponibilidad(Reserva reserva, TipoHabitacion tipoHabitacion,
+			GregorianCalendar fechaInicio, GregorianCalendar fechaFin) {
+		int contarHabitacionMismoTipo = 0;
+		int contarHabitacionConReserva = 0;
+		for(Habitacion h: this.habitaciones.values()) {
+			if(h.getTipoHabitacion().getNombre().equals(tipoHabitacion.getNombre())) {
+				contarHabitacionMismoTipo++;
+			}
+		}
+		
+		for(Reserva r: this.reservas.values()) {
+			if(r.coincide(tipoHabitacion, fechaInicio, fechaFin) && reserva != r) {
+				contarHabitacionConReserva++;
+			}
+		}
 	
-	
-
+		return contarHabitacionMismoTipo > contarHabitacionConReserva;
+	}
 }

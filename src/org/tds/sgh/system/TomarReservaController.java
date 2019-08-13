@@ -50,4 +50,11 @@ public class TomarReservaController extends BaseController implements ITomarRese
 		this.reserva = reserva;
 		return DTO.getInstance().map(reserva);
 	}
+	
+	@Override
+	public boolean confirmarDisponibilidad(String nombreHotel, String nombreTipoHabitacion,
+			GregorianCalendar fechaInicio, GregorianCalendar fechaFin) throws Exception {
+		boolean disponibilidad = this.cadenaHotelera.confirmarDisponibilidad(this.reserva, nombreHotel, nombreTipoHabitacion, fechaInicio, fechaFin);
+		return disponibilidad;
+	}
 }
