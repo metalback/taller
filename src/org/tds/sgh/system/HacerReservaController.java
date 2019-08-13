@@ -25,6 +25,11 @@ public class HacerReservaController extends BaseController implements IHacerRese
 		if(Infrastructure.getInstance().getCalendario().esPasada(fechaInicio)) {
 			throw new Exception("Fecha inicio en el pasado");
 		}
+		
+		if(Infrastructure.getInstance().getCalendario().esPosterior(fechaInicio, fechaFin)) {
+			throw new Exception("Fecha inicio posterior a fecha fin");
+		}
+		
 		HashSet<Hotel> hoteles = (HashSet<Hotel>) this.cadenaHotelera.sugerirAlternativas( pais,nombreTipoHabitacion,fechaInicio,fechaFin);
 		return DTO.getInstance().mapHoteles(hoteles);
 	}
