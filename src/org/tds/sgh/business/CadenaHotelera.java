@@ -196,8 +196,11 @@ public class CadenaHotelera
 	}
 
 	public HashSet<Hotel> sugerirAlternativas(String pais, String nombreTipoHabitacion, GregorianCalendar fechaInicio,
-			GregorianCalendar fechaFin) {
+			GregorianCalendar fechaFin) throws Exception {
 		TipoHabitacion tipoHabitacion = this.tiposHabitacion.get(nombreTipoHabitacion);
+		if(tipoHabitacion == null) {
+			throw new Exception("No existe el tipo de habitación.");
+		}
 		HashSet<Hotel> hoteles_sugeridos = new HashSet<Hotel>();
 		
 		for (Map.Entry<String, Hotel> entry : this.hoteles.entrySet()) {
