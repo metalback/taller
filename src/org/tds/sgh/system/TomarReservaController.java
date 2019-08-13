@@ -23,7 +23,12 @@ public class TomarReservaController extends BaseController implements ITomarRese
 	
 	public ReservaDTO modificarReserva(String nombreHotel, String nombreTipoHabitacion, GregorianCalendar fechaInicio,
 			GregorianCalendar fechaFin, boolean modificablePorHuesped) throws Exception {
-		throw new NotImplementedException();
+		if(!this.reserva.getModificablePorHuesped()) {
+			throw new Exception("No modificable");
+		}
+		Cliente cliente = this.reserva.getCliente();
+		Reserva reserva = this.cadenaHotelera.modificarReserva(nombreHotel, cliente, this.reserva.getCodigoReserva(), nombreTipoHabitacion, fechaInicio, fechaFin, modificablePorHuesped);
+		return DTO.getInstance().map(reserva);
 	}
 
 	public Set<ReservaDTO> buscarReservasPendientes(String nombreHotel) throws Exception {
