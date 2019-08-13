@@ -88,7 +88,8 @@ public class Reserva
 	public boolean coincide(TipoHabitacion tipoHabitacion, GregorianCalendar fechaInicio, GregorianCalendar fechaFin) {
 		return this.tipoHabitacion == tipoHabitacion && 
 			!(Infrastructure.getInstance().getCalendario().esAnterior(fechaFin, this.fechaInicio) || 
-			Infrastructure.getInstance().getCalendario().esPosterior(fechaInicio, this.fechaFin));
+			Infrastructure.getInstance().getCalendario().esPosterior(fechaInicio, this.fechaFin) ||
+			Infrastructure.getInstance().getCalendario().esMismoDia(fechaInicio, this.fechaFin) );
 	}
 	
 	public void asociarHuesped(String nombre, String documento){
