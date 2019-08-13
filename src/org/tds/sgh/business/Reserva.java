@@ -72,6 +72,10 @@ public class Reserva
 	}
 	
 	public Reserva actualizarReserva(Hotel hotel, TipoHabitacion tipoHabitacion, GregorianCalendar fechaInicio, GregorianCalendar fechaFin, Boolean modificablePorCliente) {
+		if(this.getHotel() != hotel) {
+			this.getHotel().quitarReserva(this);
+		}
+		
 		this.setTipoHabitacion(tipoHabitacion);
 		this.setFechaInicio(fechaInicio);
 		this.setFechaFin(fechaFin);

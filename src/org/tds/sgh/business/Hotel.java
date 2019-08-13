@@ -69,6 +69,10 @@ public class Hotel
 	
 	public void agregarReserva(Reserva reserva){}
 	
+	public void quitarReserva(Reserva reserva){
+		this.reservas.remove(reserva.getCodigoReserva());
+	}
+	
 	public boolean confirmarDisponibilidad(TipoHabitacion tipoHabitacion ,GregorianCalendar fechaInicio, GregorianCalendar fechaFin){
 		int contarHabitacionMismoTipo = 0;
 		int contarHabitacionConReserva = 0;
