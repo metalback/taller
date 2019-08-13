@@ -176,6 +176,10 @@ public class CadenaHotelera
 			throw new Exception("La fecha indicada es pasada");
 		}
 		
+		if(Infrastructure.getInstance().getCalendario().esPosterior(fechaInicio, fechaFin)) {
+			throw new Exception("La fecha de inicio es superior a la fecha de fin");
+		}
+		
 		TipoHabitacion tipoHabitacion = this.tiposHabitacion.get(nombreTipoHabitacion);
 		Hotel hotel = this.hoteles.get(nombreHotel);
 		return hotel.confirmarDisponibilidad(tipoHabitacion, fechaInicio, fechaFin);
