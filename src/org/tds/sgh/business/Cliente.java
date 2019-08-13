@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.tds.sgh.dtos.HuespedDTO;
+import org.tds.sgh.infrastructure.Infrastructure;
 
 public class Cliente
 {
@@ -134,7 +135,10 @@ public class Cliente
 	public Set<Reserva> getReservas() {
 		Set<Reserva> reservas = new HashSet<Reserva>();	
 		for  ( Reserva r : this.reservas.values()) {
-			reservas.add(r);
+			if(Infrastructure.getInstance().getCalendario().esPosterior(r.getFechaInicio(), Infrastructure.getInstance().getCalendario().getHoy())) {
+				reservas.add(r);
+			}
+			
 		}
 		return reservas;
 	}

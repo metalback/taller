@@ -137,10 +137,6 @@ public class Hotel
 		    	reservasPendientes.add(reserva);
 		    }
 		}
-		
-		if(reservasPendientes.size() <= 0 || reservasPendientes == null) {
-			throw new Exception("Ya existe un huesped con el documento indicado.");
-		}
 		return reservasPendientes;
 	
     }	
