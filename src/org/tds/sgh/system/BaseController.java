@@ -68,10 +68,11 @@ public class BaseController implements IIdentificarClienteEnRecepcionController 
 	}
 	
 	public ReservaDTO seleccionarReserva(long codigoReserva) throws Exception {
-		if(this.cliente == null) {
-			throw new Exception("Se debe seleccionar un cliente");
-		}
 		Reserva reserva = this.cadenaHotelera.seleccionarReserva(codigoReserva);
+		Cliente cliente = reserva.getCliente();
+		if(cliente != this.cliente) {
+			throw new Exception("Cliente asociado a la reserva es distinto al activo");
+		}
 		this.reserva = reserva;
 		return DTO.getInstance().map(reserva);
 	}

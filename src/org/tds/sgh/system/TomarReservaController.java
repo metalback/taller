@@ -43,4 +43,11 @@ public class TomarReservaController extends BaseController implements ITomarRese
 		Infrastructure.getInstance().getSistemaFacturacion().iniciarEstadia(DTO.getInstance().map(reserva));
 		return DTO.getInstance().map(reserva);
 	}
+	
+	@Override
+	public ReservaDTO seleccionarReserva(long codigoReserva) throws Exception {
+		Reserva reserva = this.cadenaHotelera.seleccionarReserva(codigoReserva);
+		this.reserva = reserva;
+		return DTO.getInstance().map(reserva);
+	}
 }
