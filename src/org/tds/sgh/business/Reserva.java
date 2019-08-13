@@ -182,6 +182,7 @@ public class Reserva
 	}
 
 	public Reserva cancelar() {
+		this.getCliente().quitarReserva(this);
 		this.setEstado(EstadoReserva.Cancelada);
 		return this;
 	}

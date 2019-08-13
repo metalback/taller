@@ -99,6 +99,10 @@ public class Cliente
 		return reserva.actualizarReserva(hotel, tipoHabitacion, fechaInicio, fechaFin, modificablePorCliente);
 	}
 	
+	public void quitarReserva(Reserva reserva) {
+		this.reservas.remove(reserva.getCodigoReserva());
+	}
+	
 	
 
 	// --------------------------------------------------------------------------------------------
