@@ -166,7 +166,10 @@ public class CadenaHotelera
 	}
 
 	public boolean confirmarDisponibilidad(String nombreHotel, String nombreTipoHabitacion,
-			GregorianCalendar fechaInicio, GregorianCalendar fechaFin) {
+			GregorianCalendar fechaInicio, GregorianCalendar fechaFin) throws Exception {
+		if(this.tiposHabitacion.isEmpty() || this.tiposHabitacion.get(nombreTipoHabitacion) == null) {
+			throw new Exception("No existe el tipo de habitación solicitado.");
+		}
 		TipoHabitacion tipoHabitacion = this.tiposHabitacion.get(nombreTipoHabitacion);
 		Hotel hotel = this.hoteles.get(nombreHotel);
 		return hotel.confirmarDisponibilidad(tipoHabitacion, fechaInicio, fechaFin);
