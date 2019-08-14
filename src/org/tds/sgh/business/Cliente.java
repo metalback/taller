@@ -97,8 +97,7 @@ public class Cliente
 	
 	public Reserva modificarReserva(Hotel hotel, long codigoReserva, TipoHabitacion tipoHabitacion, GregorianCalendar fechaInicio, GregorianCalendar fechaFin, Boolean modificablePorCliente){
 		Reserva reserva = this.reservas.get(codigoReserva);
-		Reserva actualizada = reserva.actualizarReserva(hotel, tipoHabitacion, fechaInicio, fechaFin, modificablePorCliente);
-		return reserva;
+		return reserva.actualizarReserva(hotel, tipoHabitacion, fechaInicio, fechaFin, modificablePorCliente);
 	}
 	
 	public void quitarReserva(Reserva reserva) {
