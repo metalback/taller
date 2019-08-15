@@ -1,5 +1,8 @@
 package org.tds.sgh.business;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Habitacion
 {
 	// --------------------------------------------------------------------------------------------
