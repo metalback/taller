@@ -169,7 +169,8 @@ public class Reserva
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-	@OneToOne
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="HABITACION_ID")
 	public Habitacion getHabitacion() {
 		return habitacion;
 	}
