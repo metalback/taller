@@ -209,7 +209,7 @@ public class Hotel
 	
 		return contarHabitacionMismoTipo > contarHabitacionConReserva;
 	}
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "HOTEL")
 	public Map<Long, Reserva> getReservas() {
 		return reservas;
 	}
@@ -217,7 +217,7 @@ public class Hotel
 	public void setReservas(Map<Long, Reserva> reservas) {
 		this.reservas = reservas;
 	}
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "HABITACION")
 	public Map<String, Habitacion> getHabitaciones() {
 		return habitaciones;
 	}
