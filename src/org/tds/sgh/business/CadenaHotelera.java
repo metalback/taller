@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -225,7 +226,7 @@ public class CadenaHotelera
 		}
 		return hoteles_sugeridos;
 	}
-
+	@OneToMany(cascade = CascadeType.ALL)
 	public Map<String, Cliente> getClientes() {
 		return clientes;
 	}
@@ -233,7 +234,7 @@ public class CadenaHotelera
 	public void setClientes(Map<String, Cliente> clientes) {
 		this.clientes = clientes;
 	}
-
+	@OneToMany(cascade = CascadeType.ALL)
 	public Map<String, Hotel> getHoteles() {
 		return hoteles;
 	}
@@ -241,7 +242,7 @@ public class CadenaHotelera
 	public void setHoteles(Map<String, Hotel> hoteles) {
 		this.hoteles = hoteles;
 	}
-
+	@OneToMany(cascade = CascadeType.ALL)
 	public Map<String, TipoHabitacion> getTiposHabitacion() {
 		return tiposHabitacion;
 	}
