@@ -23,15 +23,12 @@ public class CadenaHotelera
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	@OneToMany
 	private Map<String, Cliente> clientes;
 	
-	@OneToMany
 	private Map<String, Hotel> hoteles;
 	
 	private String nombre;
 	
-	@OneToMany
 	private Map<String, TipoHabitacion> tiposHabitacion;
 	
 	private Cliente cliente;
