@@ -1,6 +1,7 @@
 package org.tds.sgh.business;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Habitacion
@@ -29,7 +30,7 @@ public class Habitacion
 	{
 		return this.nombre;
 	}
-	
+	@OneToOne
 	public TipoHabitacion getTipoHabitacion()
 	{
 		return this.tipoHabitacion;
