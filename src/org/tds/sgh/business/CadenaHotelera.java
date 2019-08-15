@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import org.tds.sgh.infrastructure.Infrastructure;
 
@@ -21,12 +22,15 @@ public class CadenaHotelera
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
+	@OneToMany
 	private Map<String, Cliente> clientes;
 	
+	@OneToMany
 	private Map<String, Hotel> hoteles;
 	
 	private String nombre;
 	
+	@OneToMany
 	private Map<String, TipoHabitacion> tiposHabitacion;
 	
 	private Cliente cliente;
