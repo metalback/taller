@@ -7,10 +7,14 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+
 import org.tds.sgh.infrastructure.Infrastructure;
 
 
-
+@Entity
 public class Reserva
 {
 	// --------------------------------------------------------------------------------------------
@@ -115,7 +119,7 @@ public class Reserva
 	public void setModificablePorHuesped(Boolean modificablePorHuesped) {
 		this.modificablePorHuesped = modificablePorHuesped;
 	}
-
+	@OneToMany(cascade = CascadeType.ALL)
 	public Collection<Huesped> getHuespedes() {
 		return this.huespedes.values();
 	}
@@ -153,7 +157,7 @@ public class Reserva
 	public void setFechaFin(GregorianCalendar fechaFin) {
 		this.fechaFin = fechaFin;
 	}
-
+	@OneToOne
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -161,7 +165,7 @@ public class Reserva
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-
+	@OneToOne
 	public Habitacion getHabitacion() {
 		return habitacion;
 	}
@@ -169,7 +173,7 @@ public class Reserva
 	public void setHabitacion(Habitacion habitacion) {
 		this.habitacion = habitacion;
 	}
-
+	@OneToOne
 	public Hotel getHotel() {
 		return hotel;
 	}
