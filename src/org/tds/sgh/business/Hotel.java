@@ -5,12 +5,17 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+
 import org.tds.sgh.*;
 import org.tds.sgh.infrastructure.Infrastructure;
 
 
 
-
+@Entity
 public class Hotel
 {
 	// --------------------------------------------------------------------------------------------
@@ -204,4 +209,21 @@ public class Hotel
 	
 		return contarHabitacionMismoTipo > contarHabitacionConReserva;
 	}
+	@OneToMany(cascade = CascadeType.ALL)
+	public Map<Long, Reserva> getReservas() {
+		return reservas;
+	}
+
+	public void setReservas(Map<Long, Reserva> reservas) {
+		this.reservas = reservas;
+	}
+	@OneToMany(cascade = CascadeType.ALL)
+	public Map<String, Habitacion> getHabitaciones() {
+		return habitaciones;
+	}
+
+	public void setHabitaciones(Map<String, Habitacion> habitaciones) {
+		this.habitaciones = habitaciones;
+	}
+	
 }
