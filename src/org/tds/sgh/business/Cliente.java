@@ -7,12 +7,23 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 import org.tds.sgh.dtos.HuespedDTO;
 import org.tds.sgh.infrastructure.Infrastructure;
 
+@Entity
 public class Cliente
 {
 	// --------------------------------------------------------------------------------------------
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
 	
 	private String direccion;
 	
@@ -131,7 +142,7 @@ public class Cliente
 	public void setReservas(Map<Long, Reserva> reservas) {
 		this.reservas = reservas;
 	}
-
+	@OneToMany(cascade = CascadeType.ALL)
 	public Set<Reserva> getReservas() {
 		Set<Reserva> reservas = new HashSet<Reserva>();	
 		for  ( Reserva r : this.reservas.values()) {
