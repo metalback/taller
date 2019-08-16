@@ -8,6 +8,9 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import org.tds.sgh.*;
@@ -21,6 +24,8 @@ public class Hotel
 	// --------------------------------------------------------------------------------------------
 	
 	
+	
+	private long id;
 	
 	private String nombre;
 	private String pais;
@@ -209,7 +214,7 @@ public class Hotel
 	
 		return contarHabitacionMismoTipo > contarHabitacionConReserva;
 	}
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "HOTEL")
+	@OneToMany(cascade = CascadeType.ALL)
 	public Map<Long, Reserva> getReservas() {
 		return reservas;
 	}
@@ -217,13 +222,23 @@ public class Hotel
 	public void setReservas(Map<Long, Reserva> reservas) {
 		this.reservas = reservas;
 	}
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "HABITACION")
+	@OneToMany(cascade = CascadeType.ALL)
 	public Map<String, Habitacion> getHabitaciones() {
 		return habitaciones;
 	}
 
 	public void setHabitaciones(Map<String, Habitacion> habitaciones) {
 		this.habitaciones = habitaciones;
+	}
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 	
 }

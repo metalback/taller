@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import org.tds.sgh.infrastructure.Infrastructure;
 
@@ -19,8 +20,7 @@ import org.tds.sgh.infrastructure.Infrastructure;
 public class CadenaHotelera
 {
 	// --------------------------------------------------------------------------------------------
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	
 	private long id;
 
 	private Map<String, Cliente> clientes;
@@ -251,7 +251,7 @@ public class CadenaHotelera
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
+	@Transient
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -259,7 +259,7 @@ public class CadenaHotelera
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-
+	@Transient
 	public Hotel getHotel() {
 		return hotel;
 	}
@@ -275,7 +275,7 @@ public class CadenaHotelera
 	}
 	public Set<Reserva> buscarReservasDelCliente(String rutCliente){
 		Cliente cliente = this.clientes.get(rutCliente);
-		return cliente.getReservas();
+		return cliente.listadoReservasPendientes();
 	}
 
 	public Reserva seleccionarReserva(Long codigoReserva, String rut) {
@@ -351,6 +351,8 @@ public class CadenaHotelera
 		return hotel.confirmarDisponibilidad(reserva, tipoHabitacion, fechaInicio, fechaFin);
 	}
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public long getId() {
 		return id;
 	}

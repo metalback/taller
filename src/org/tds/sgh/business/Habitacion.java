@@ -1,14 +1,21 @@
 package org.tds.sgh.business;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
 public class Habitacion
 {
 	// --------------------------------------------------------------------------------------------
+	
+	private long id;
 	private TipoHabitacion tipoHabitacion;
 	private String nombre;
+	private Hotel hotel;
 	
 
 	
@@ -44,4 +51,21 @@ public class Habitacion
 		this.tipoHabitacion = tipoHabitacion;
 	}
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+	
+	@ManyToOne
+	public Hotel getHotel() {
+		return hotel;
+	}
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
+	}
 }

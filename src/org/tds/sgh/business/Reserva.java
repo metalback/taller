@@ -10,6 +10,9 @@ import java.util.UUID;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -22,6 +25,9 @@ import org.tds.sgh.infrastructure.Infrastructure;
 public class Reserva
 {
 	// --------------------------------------------------------------------------------------------
+	
+	private long id;
+	
 	private long codigoReserva;
 	
 	private GregorianCalendar fechaInicio;
@@ -132,6 +138,7 @@ public class Reserva
 		this.huespedes = huespedes;
 	}
 
+	@ManyToOne
 	public TipoHabitacion getTipoHabitacion() {
 		return this.tipoHabitacion;
 	}
@@ -161,7 +168,8 @@ public class Reserva
 	public void setFechaFin(GregorianCalendar fechaFin) {
 		this.fechaFin = fechaFin;
 	}
-	@OneToOne
+
+	@ManyToOne
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -170,7 +178,6 @@ public class Reserva
 		this.cliente = cliente;
 	}
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="HABITACION_ID")
 	public Habitacion getHabitacion() {
 		return habitacion;
 	}
@@ -179,7 +186,6 @@ public class Reserva
 		this.habitacion = habitacion;
 	}
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="HOTEL_ID")
 	public Hotel getHotel() {
 		return hotel;
 	}
@@ -197,6 +203,18 @@ public class Reserva
 		this.setEstado(EstadoReserva.Cancelada);
 		return this;
 	}
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+	
+	
 	
 	
 }

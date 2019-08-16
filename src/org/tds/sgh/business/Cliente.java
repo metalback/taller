@@ -19,8 +19,6 @@ import org.tds.sgh.infrastructure.Infrastructure;
 public class Cliente
 {
 	// --------------------------------------------------------------------------------------------
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
 	private String direccion;
@@ -140,8 +138,8 @@ public class Cliente
 	public void setReservas(Map<Long, Reserva> reservas) {
 		this.reservas = reservas;
 	}
-	@OneToMany(cascade = CascadeType.ALL)
-	public Set<Reserva> getReservas() {
+	
+	public Set<Reserva> listadoReservasPendientes() {
 		Set<Reserva> reservas = new HashSet<Reserva>();	
 		for  ( Reserva r : this.reservas.values()) {
 			if(r.getEstado() == EstadoReserva.Pendiente) {
@@ -152,6 +150,21 @@ public class Cliente
 			}		
 		}
 		return reservas;
+	}
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	public Map<Long, Reserva> getReservas() {
+		return reservas;
+	}
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 	
 	
