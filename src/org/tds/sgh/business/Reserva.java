@@ -130,8 +130,8 @@ public class Reserva
 		this.modificablePorHuesped = modificablePorHuesped;
 	}
 	@OneToMany(cascade = CascadeType.ALL)
-	public Collection<Huesped> getHuespedes() {
-		return this.huespedes.values();
+	public Map<String, Huesped> getHuespedes() {
+		return this.huespedes;
 	}
 
 	public void setHuespedes(Map<String, Huesped> huespedes) {

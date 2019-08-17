@@ -38,7 +38,7 @@ public class DTO
 	{
 		List<HuespedDTO> huespedes = new ArrayList<>();
 		
-		for  ( Huesped h : reserva.getHuespedes()) {
+		for  ( Huesped h : reserva.getHuespedes().values()) {
 			huespedes.add(new HuespedDTO(h.getNombre(), h.getDocumento()));
 		}
 		
