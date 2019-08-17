@@ -185,7 +185,7 @@ public class Reserva
 	public void setHabitacion(Habitacion habitacion) {
 		this.habitacion = habitacion;
 	}
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne
 	public Hotel getHotel() {
 		return hotel;
 	}
