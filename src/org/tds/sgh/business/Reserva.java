@@ -177,7 +177,7 @@ public class Reserva
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL)
 	public Habitacion getHabitacion() {
 		return habitacion;
 	}
